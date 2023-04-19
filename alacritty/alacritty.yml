@@ -1,0 +1,18 @@
+font:
+  normal:
+    family: terminal-font
+    style: Regular
+
+  bold:
+    family: terminal-font
+    style: Bold
+
+  italic:
+    family: terminal-font
+    style: Italic
+
+  bold_italic:
+    family: terminal-font
+    style: Bold Italic
+
+  size: 11
