@@ -13,8 +13,8 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,7 +54,7 @@ export GPGKEY="7237373D83B47ACEEF420880330669D11815893C"
 # enable GPG signing
 export GPG_TTY=$TTY
 
-# Pocket PNF endpoint
+# Pocket endpoints
 export PNI_POCKET_ENDPOINT=https://pnfchains:FJaH6b4Modr8QDvQSgkh@pokt-dispatchers.us-east4-1.poktnodes.network:8443
 export POCKET_ENDPOINT=https://mainnet.gateway.pokt.network/v1/lb/5cefc586e2340a26d983f63f
 export LOCAL_POCKET_ENDPOINT=http://localhost:50832
@@ -66,20 +66,19 @@ alias cp="cp -v"
 alias mkdir="mkdir -pv"
 alias rm="rm -v"
 alias mv="mv -v"
-alias vim="vim -p"
+alias vim="nvim"
 
 # Source cargo
 source "$HOME/.cargo/env"
 
+# PATH
+export PATH="$PATH:$HOME/.local/bin"
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
 # GOPATH
 export GOPATH="$( go env GOPATH )"
+path+=($( go env GOPATH ))
+path+=("$( go env GOPATH )/bin")
 
 # Foundry
 export PATH="$PATH:/home/harry/.foundry/bin"
-
-path+=($HOME/.local/bin)
-path+=($( go env GOPATH ))
-path+=("$( go env GOPATH )/bin")
-path+=("/home/harry/Tools/GoLand-2023.1/bin")
-path+=("/.zig/zig-0.11.0/zig")
-fpath+=${ZDOTDIR:-~}/.zsh_functions
