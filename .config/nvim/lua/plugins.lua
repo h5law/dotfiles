@@ -14,10 +14,6 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
     -- General Plugins
     use 'wbthomason/packer.nvim'
-    use {
-        "williamboman/mason.nvim",
-        run = ":MasonUpdate"
-    }
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
     use 'tpope/vim-fugitive'
@@ -25,7 +21,11 @@ return require('packer').startup(function(use)
     use 'Yggdroot/indentLine'
     use 'tpope/vim-rhubarb'
     use { "ellisonleao/gruvbox.nvim" }
--- Nvim-Tree
+
+    -- Discord
+    use 'andweeb/presence.nvim'
+
+    -- Nvim-Tree
     use 'nvim-tree/nvim-web-devicons'
     use 'nvim-tree/nvim-tree.lua'
 

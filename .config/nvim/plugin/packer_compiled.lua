@@ -84,11 +84,6 @@ _G.packer_plugins = {
     path = "/home/harry/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ale = {
-    loaded = true,
-    path = "/home/harry/.local/share/nvim/site/pack/packer/start/ale",
-    url = "https://github.com/dense-analysis/ale"
-  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/harry/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -134,11 +129,6 @@ _G.packer_plugins = {
     path = "/home/harry/.local/share/nvim/site/pack/packer/start/indentLine",
     url = "https://github.com/Yggdroot/indentLine"
   },
-  ["null-ls.nvim"] = {
-    loaded = true,
-    path = "/home/harry/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
-    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
-  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/harry/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -178,6 +168,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/harry/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["presence.nvim"] = {
+    loaded = true,
+    path = "/home/harry/.local/share/nvim/site/pack/packer/start/presence.nvim",
+    url = "https://github.com/andweeb/presence.nvim"
   },
   ["rust-tools.nvim"] = {
     loaded = true,

@@ -3,8 +3,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
--- Mason
-require("mason").setup()
+-- Enable Discord Plugin
+require("presence").setup()
 
 -- Disable Copilot Keys for use with nvim-cmp
 vim.g.copilot_no_tab_map = true
@@ -18,7 +18,7 @@ local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
-local cmp = require'cmp'
+local cmp = require('cmp')
 local luasnip = require('luasnip')
 cmp.setup({
     snippet = {
