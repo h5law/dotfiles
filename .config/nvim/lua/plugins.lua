@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
     use 'Yggdroot/indentLine'
     use 'tpope/vim-rhubarb'
     use { "ellisonleao/gruvbox.nvim" }
+    use 'tpope/vim-sensible'
 
     -- Discord
     use 'andweeb/presence.nvim'
@@ -37,6 +38,7 @@ return require('packer').startup(function(use)
 
     -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'nvim-treesitter/nvim-treesitter-context', run = ':TSContextEnable' }
 
     --nvim-lspconfig
     use 'neovim/nvim-lspconfig'
@@ -58,6 +60,9 @@ return require('packer').startup(function(use)
     -- Rust
     use 'simrat39/rust-tools.nvim'
     use 'mfussenegger/nvim-dap'
+
+    -- Zig
+    use 'ziglang/zig.vim'
 
     -- LaTeX
     use 'LaTex-Box-Team/LaTeX-Box'

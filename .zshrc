@@ -77,8 +77,10 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 # GOPATH
 export GOPATH="$( go env GOPATH )"
-path+=($( go env GOPATH ))
-path+=("$( go env GOPATH )/bin")
+export PATH="$PATH:$GOPATH:$GOPATH/bin"
 
 # Foundry
 export PATH="$PATH:/home/harry/.foundry/bin"
+
+# Zig
+export PATH="$PATH:$HOME/.zig"

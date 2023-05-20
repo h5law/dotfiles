@@ -158,8 +158,12 @@ lspconfig.gopls.setup{
     capabilities = capabilities,
 }
 
+lspconfig.zls.setup{
+    cmd = { 'zls' },
+    capabilities = capabilities,
+}
+
 lspconfig.rust_analyzer.setup {
-    -- Server-specific settings. See `:help lspconfig-setup`
     settings = {
         ['rust-analyzer'] = {},
     },
@@ -188,6 +192,8 @@ configs.solidity = {
     },
 }
 lspconfig.solidity.setup {}
+
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
