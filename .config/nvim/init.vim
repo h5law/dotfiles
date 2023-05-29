@@ -42,9 +42,6 @@ set smartcase
 "" Spellcheck
 set spelllang=en_gb
 
-"" Set y and p to use system clipboard
-set clipboard=unnamedplus
-
 set fileformats=unix,dos,mac
 
 if exists('$SHELL')
@@ -197,9 +194,6 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "" Opens a tab edit command with the path of the currently edited file filled
 noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-vnoremap <Leader>y "*y
-vnoremap <Leader>p "*p
-
 "" Clean search (highlight)
 nnoremap <silent> ., :let @/=""<CR>
 nnoremap <silent> <leader><space> :noh<cr>
@@ -207,6 +201,10 @@ nnoremap <silent> <leader><space> :noh<cr>
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
+
+"" Copy/Paste to/from system clipboard
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
 
 "" Move visual block
 vnoremap J :m '>+1<CR>gv=gv
