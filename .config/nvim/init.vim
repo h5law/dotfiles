@@ -113,7 +113,7 @@ cnoreabbrev X x
 cnoreabbrev Xa xa
 
 " terminal emulation
-nnoremap <silent> <Leader>sh :terminal<CR>
+nnoremap <silent> <Leader>sh :vsp <bar> :terminal<CR>
 
 "*****************************************************************************
 "" Commands
@@ -176,8 +176,7 @@ nnoremap <C-F> :bfirst<CR>
 nnoremap <C-L> :blast<CR>
 nnoremap <C-N> :bnext<CR>
 nnoremap <C-P> :bprevious<CR>
-nnoremap <C-D> :bp\|bd #<CR>
-nnoremap <C-C> :close<CR>
+nnoremap <silent> <C-D> :bp\|bd #<CR>
 
 "" Switching windows
 noremap <C-J> <C-W>j
