@@ -112,9 +112,6 @@ cnoreabbrev Qall qall
 cnoreabbrev X x
 cnoreabbrev Xa xa
 
-" terminal emulation
-nnoremap <silent> <Leader>sh :vsp <bar> :terminal<CR>
-
 "*****************************************************************************
 "" Commands
 "*****************************************************************************
@@ -171,12 +168,20 @@ set autoread
 "" Mappings
 "*****************************************************************************
 
+"" Splits
+nnoremap <silent> <leader>sv :vsp <bar> :bprev<CR>
+
+" terminal emulation
+nnoremap <silent> <Leader>shv :vsp <bar> :terminal<CR>
+nnoremap <silent> <Leader>shb :sp <bar> :terminal<CR>
+
 "" Navigate buffers
 nnoremap <C-F> :bfirst<CR>
 nnoremap <C-L> :blast<CR>
 nnoremap <C-N> :bnext<CR>
 nnoremap <C-P> :bprevious<CR>
 nnoremap <silent> <C-D> :bp\|bd #<CR>
+nnoremap <silent> <leader>c :close<CR>
 
 "" Switching windows
 noremap <C-J> <C-W>j
@@ -202,8 +207,8 @@ vmap < <gv
 vmap > >gv
 
 "" Copy/Paste to/from system clipboard
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
+map <leader>y "+y
+map <leader>p "+p
 
 "" Move visual block
 vnoremap J :m '>+1<CR>gv=gv
