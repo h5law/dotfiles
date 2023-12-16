@@ -9,22 +9,27 @@ local sources = {
       },
     }),
     null_ls.builtins.formatting.rustfmt,
-    null_ls.builtins.formatting.ruff,
+    null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.eslint_d,
-    null_ls.builtins.formatting.markdown_toc,
-    null_ls.builtins.formatting.mdformat,
     null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.formatting.mdformat,
+    null_ls.builtins.formatting.markdown_toc,
 
+    null_ls.builtins.diagnostics.mypy,
+    null_ls.builtins.diagnostics.ruff,
+    null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.revive,
     null_ls.builtins.diagnostics.protolint,
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.golangci_lint,
+
+    null_ls.builtins.completion.spell,
 }
 
-local gotest = require("go.null_ls").gotest()
+-- local gotest = require("go.null_ls").gotest()
 -- local gotest_codeaction = require("go.null_ls").gotest_action()
 -- local golangci_lint = require("go.null_ls").golangci_lint()
-table.insert(sources, gotest)
+-- table.insert(sources, gotest)
 -- table.insert(sources, gotest_codeaction)
 -- table.insert(sources, golangci_lint)
 

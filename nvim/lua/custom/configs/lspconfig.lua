@@ -50,3 +50,10 @@ lspconfig.pyright.setup({
   filetypes = { "python" },
   root_dir = util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"),
 })
+
+lspconfig.tsserver.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
+})

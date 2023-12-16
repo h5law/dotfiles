@@ -8,6 +8,9 @@ vim.opt.shell = "/bin/zsh"
 -- Encoding
 vim.opt.fileencoding = "utf-8"
 
+-- Spelling
+vim.opt.spelllang = "en_gb"
+
 -- Highlight columns
 vim.opt.colorcolumn = "80,90"
 vim.opt.signcolumn = "yes"

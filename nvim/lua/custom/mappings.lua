@@ -91,12 +91,12 @@ M.gonvim = {
   plugin = true,
   n = {
     ["<leader>tm"] = {
-      "<cmd> GoTestFunc <CR>",
+      "<cmd> GoTestFunc -v <CR>",
       "Test current go function"
     },
 
     ["<leader>tf"] = {
-      "<cmd> GoTestFile <CR>",
+      "<cmd> GoTestFile -v <CR>",
       "Test current go file"
     },
 

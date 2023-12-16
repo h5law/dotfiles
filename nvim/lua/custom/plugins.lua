@@ -42,6 +42,8 @@ local plugins = {
         "golines",
         "protolint",
         "pyright",
+        "mypy",
+        "black",
         "ruff",
         "eslint_d",
         "markdown-toc",
