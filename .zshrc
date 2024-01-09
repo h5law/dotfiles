@@ -109,12 +109,14 @@ alias newrust="echo '// This file is part of <package-name>.
 // Authors:
 // - h5law <h5law.curve514@passfwd.com>' > ${1}"
 
-# nvim aliases
+# spelling aliases
 alias vim="nvim"
 alias mvim="nvim"
 alias vnim="nvim"
 alias nim="nvim"
 alias ncim="nvim"
+alias nvmi="nvim"
+alias got="git"
 
 # fzf aliases
 alias fim="nvim \$(fzf)"
@@ -122,6 +124,8 @@ alias sd="cd \$(find * -type d | fzf)"
 
 # command aliases
 alias pari="/usr/local/bin/gp ${@}"
+alias gcb="git checkout -b ${1}"
+alias git_aliases="git config --get-regexp alias"
 
 ####################
 # AUTO COMPLETIONS #

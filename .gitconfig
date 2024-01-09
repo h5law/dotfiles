@@ -1,6 +1,6 @@
 [user]
     name = h5law 
-    email = 53987565+h5law@users.noreply.github.com
+    email = h5law.curve514@passfwd.com
     signingKey = F80B0DE79DC5204F561A0DE35A64130002E4B553
 
 [commit]
@@ -27,11 +27,11 @@
     better-oneline = "format:%C(auto)%h%d %s %Cblue[%cn]"
 
 [alias]
-    c     = commit
-    s     = status
-    d     = diff
-    dc    = diff --cached
-    ds    = diff --staged
+    c  = commit
+    s  = status
+    d  = diff
+    dc = diff --cached
+    ds = diff --staged
 
     # Shows all branches
     branches = branch -a
@@ -46,9 +46,9 @@
 	ll    = log --pretty=better-oneline --numstat
 	details = "!f() { git ll "$1"^.."$1"; }; f"
 
+    pull = pull --ff-only
     main = checkout main
     last = checkout -
-    new = "git checkout -g $1"
 
     # Add all exisisting files and show status
 	a   = !cd ${GIT_PREFIX:-.} && git add . && git s
