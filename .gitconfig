@@ -1,7 +1,7 @@
 [user]
-    name = harry
+    name = h5law 
     email = 53987565+h5law@users.noreply.github.com
-    signingKey = 7237373D83B47ACEEF420880330669D11815893C
+    signingKey = F80B0DE79DC5204F561A0DE35A64130002E4B553
 
 [commit]
     gpgSign = true
@@ -23,8 +23,54 @@
 [safe]
     repository = ./
 
+[pretty]
+    better-oneline = "format:%C(auto)%h%d %s %Cblue[%cn]"
+
 [alias]
-    change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f"
+    c     = commit
+    s     = status
+    d     = diff
+    dc    = diff --cached
+    ds    = diff --staged
+
+    # Shows all branches
+    branches = branch -a
+    # Shows all tags
+ 	tags     = tag
+
+    # Shows commit info in its tree form
+	tree  = log --pretty=better-oneline --all --graph
+    # Show commit into in its ls form
+	ls    = log --pretty=better-oneline
+    # Shows commit info in its ll form
+	ll    = log --pretty=better-oneline --numstat
+	details = "!f() { git ll "$1"^.."$1"; }; f"
+
+    main = checkout main
+    last = checkout -
+    new = "git checkout -g $1"
+
+    # Add all exisisting files and show status
+	a   = !cd ${GIT_PREFIX:-.} && git add . && git s
+    # Add all files, exisisting and new and show status  
+	aa  = !git add -A && git s
+    # Add all exisisting files and commit
+ 	ac  = !cd ${GIT_PREFIX:-.} && git add . && git c
+    # Add all files, exisisting and new and commit
+	aac = !git add -A && git c
+
+    # Doesn;t affect changes, adds back to workspace from staging area
+    unstage  = reset HEAD
+    # CAREFUL: undooes changes, deletes new files - effectively gives a new slate
+	cleanout = !git clean -df && git checkout -- .
+
+	uncommit = reset --soft HEAD~1
+	unmerge  = reset --hard ORIG_HEAD
+
+    merge-span  = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f"
+	merge-log   = "!git ls `git merge-span .. $1`"
+	merge-diff  = "!git diff `git merge-span ... $1`"
+
 
 [filter "lfs"]
     clean = git-lfs clean -- %f

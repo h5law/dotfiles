@@ -1,10 +1,7 @@
-local overrides = require("custom.configs.overrides")
-
 local plugins = {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/nvim-lsp-installer",
       "nvimtools/none-ls.nvim",
     },
     config = function()
@@ -26,9 +23,11 @@ local plugins = {
     end,
   },
   {
-    "zbirenbaum/copilot.lua",
-    event = "InsertEnter",
-    opts = overrides.copilot,
+    "Exafunction/codeium.vim",
+    event = "BufEnter",
+    config = function()
+      require("core.utils").load_mappings("codeium")
+    end,
   },
   {
     "williamboman/mason.nvim",
@@ -45,6 +44,7 @@ local plugins = {
         "mypy",
         "black",
         "ruff",
+        "solang",
         "eslint_d",
         "markdown-toc",
         "mdformat",
@@ -100,6 +100,60 @@ local plugins = {
       require("core.utils").load_mappings("mkdp")
     end,
     ft = { "markdown" },
+  },
+  {
+    "chentoast/marks.nvim",
+    opts = function()
+      return require("custom.configs.null-ls")
+    end,
+    init = function(_, opts)
+      require("null-ls").setup(opts)
+    end,
+  },
+  {
+    "Louis-Amas/noir-vim-support",
+  },
+  {
+    "lervag/vimtex",
+    ft = { "tex", "latex" },
+    config = function()
+      require("core.utils").load_mappings("vimtex")
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    init = function()
+      require("custom.configs.treesitter")
+    end,
+    opts = {
+      ensure_installed = {
+        -- defaults 
+        "vim",
+        "lua",
+
+        -- web dev 
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "tsx",
+        "json",
+        -- "vue", "svelte",
+
+       -- low level
+        "c",
+        "zig",
+        "rust",
+        "go",
+
+        -- Latex
+        "bibtex",
+
+        -- DSL
+        "solidity",
+        "noir",
+      },
+    },
   },
 }
 

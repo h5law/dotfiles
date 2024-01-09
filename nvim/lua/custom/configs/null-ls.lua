@@ -22,8 +22,6 @@ local sources = {
     null_ls.builtins.diagnostics.protolint,
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.golangci_lint,
-
-    null_ls.builtins.completion.spell,
 }
 
 -- local gotest = require("go.null_ls").gotest()

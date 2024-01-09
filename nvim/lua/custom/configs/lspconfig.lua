@@ -4,17 +4,6 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 
-require("nvim-lsp-installer").setup({
-    automatic_installation = true,
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-})
-
 lspconfig.rust_analyzer.setup({
   on_attach = on_attach,
   capabilities = capabilities,
@@ -57,3 +46,9 @@ lspconfig.tsserver.setup({
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
 })
+
+lspconfig.solang.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "solidity" },
+}

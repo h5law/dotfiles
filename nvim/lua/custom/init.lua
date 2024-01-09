@@ -1,6 +1,11 @@
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- Enable filetype plugins and indenting
+vim.cmd 'filetype plugin indent on'
+
+-- Enable syntax highlighting
+vim.cmd 'syntax enable'
+
+-- Set guicursor
+vim.cmd [[set guicursor=a:blinkon1]]
 
 -- Set shell
 vim.opt.shell = "/bin/zsh"
@@ -12,8 +17,11 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.spelllang = "en_gb"
 
 -- Highlight columns
-vim.opt.colorcolumn = "80,90"
-vim.opt.signcolumn = "yes"
+vim.opt.colorcolumn = "80,90,120"
+vim.opt.signcolumn = "auto"
+
+-- Clipboard
+vim.opt.clipboard = "unnamedplus"
 
 -- Colours
 vim.opt.termguicolors = true
@@ -33,3 +41,11 @@ vim.opt.cursorline = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
+
+-- Codeium
+vim.g.codeium_disable_bindings = 1
+
+-- Set global variables for vimtex
+vim.g.tex_flavor = 'latex'
+vim.g.vimtex_view_method = 'zathura'
+vim.g.vimtex_quickfix_mode = 0

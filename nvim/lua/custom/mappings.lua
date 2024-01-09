@@ -12,6 +12,15 @@ M.disabled = {
     ["<leader>v"] = "", -- new vertical term
   },
 
+  -- visual mode
+  v = {
+    ["y"] = "",         -- yank
+    ["p"] = "",         -- paste
+    ["P"] = "",         -- paste before
+    ["<leader>y"] = "", -- copy to clipboard
+    ["<leader>p"] = "", -- paste from clipboard
+  },
+
   -- terminal mode
   t = {
     ["<A-i>"] = "",     -- toggle floating term
@@ -25,8 +34,9 @@ M.common = {
   v = {
     ["J"] = { ":m '>+1<CR>gv=gv", "Move line down" },
     ["K"] = { ":m '<-2<CR>gv=gv", "Move line up" },
-    ["<leader>y"] = { '"+y', "Copy to clipboard" },
-    ["<leader>p"] = { '"+p', "Paste from clipboard" },
+    ["y"] = { '"+y', "Yank To Clipboard" },
+    ["p"] = { '"+p', "Paste from Clipboard" },
+    ["P"] = { '"+P', "Paste before from Clipboard" },
   },
 
   -- console mode
@@ -189,6 +199,96 @@ M.mkdp = {
       "Toggle Markdown Preview"
     },
   },
+}
+
+M.codeium = {
+  plugin = true,
+  i = {
+    -- Option + l
+    ["¬"] = {
+      function()
+        return vim.fn["codeium#Accept"]()
+      end,
+      "Accept completion (Option + l)",
+      opts = { expr = true, silent = true },
+    },
+
+    -- Option + Shift + ;
+    ["<Ú>"] = {
+      function()
+        return vim.fn["codeium#Complete"]()
+      end,
+      "Manually trigger suggestions (Option + Shift + ;)",
+      opts = { expr = true, silent = true },
+    },
+
+    -- Option+;
+    ["<…>"] = {
+      function()
+        return vim.fn["codeium#CycleCompletions"](1)
+      end,
+      "Next suggestion (Option + ;)",
+      opts = { expr = true, silent = true },
+    },
+
+    -- Option + ,
+    ["<≤>"] = {
+      function()
+        return vim.fn["codeium#CycleCompletions"](-1)
+      end,
+      "Previous suggestion (Option + ,)",
+      opts = { expr = true, silent = true },
+    },
+
+    -- Option+x
+    ["<≈>"] = {
+      function()
+        return vim.fn["codeium#Clear"]()
+      end,
+      "Clear current suggestion (Option + x)",
+      opts = { expr = true, silent = true },
+    },
+  },
+}
+
+M.vimtex = {
+  plugin = true,
+  n = {
+    ["<leader>toc"] = {
+      "<cmd> VimtexTocOpen <CR>",
+      "Open table of contents"
+    },
+
+    ["<leader>tlg"] = {
+      "<cmd> VimtexLog <CR>",
+      "Show a message log"
+    },
+
+    ["<leader>tle"] = {
+      "<cmd> VimtexErrors <CR>",
+      "Show any errors or warnings"
+    },
+
+    ["<leader>tsc"] = {
+      "<cmd> VimtexStop <CR>",
+      "Stop compilation for the current project"
+    },
+
+    ["<leader>tsa"] = {
+      "<cmd> VimtexStopAll <CR>",
+      "Stop compilation for all open projects"
+    },
+
+    ["<leader>tcf"] = {
+      "<cmd> VimtexClean <CR>",
+      "Clean all auxiliary files"
+    },
+
+    ["<leader>tv"] = {
+      "<cmd> VimtexView <CR>",
+      "View the pdf of the current project"
+    }
+  }
 }
 
 return M
