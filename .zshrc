@@ -66,7 +66,7 @@ export GPG_TTY=$TTY
 #############
 # FUNCTIONS #
 #############
-encrypt() {
+function encrypt() {
     local file=$1
     if [[ -z "$file" ]]; then
         echo "Please provide a filename."
@@ -83,6 +83,16 @@ encrypt() {
 
     # Encrypt the file and output with .asc extension
     gpg -ao "${filename_without_extension}.asc" -r "$GPG_H10LAW" -u "$GPG_H10LAW" -se "$file"
+}
+
+function gch {
+    git checkout $1
+    git branch --set-upstream-to=origin
+}
+
+function gcb {
+    git checkout -b $1
+    git branch --set-upstream-to=origin
 }
 
 ###########
@@ -123,7 +133,6 @@ alias sd="cd \$(find * -type d | fzf)"
 
 # command aliases
 alias pari="/usr/local/bin/gp ${@}"
-alias gcb="git checkout -b ${1}"
 alias git_aliases="git config --get-regexp alias"
 
 ####################
