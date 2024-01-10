@@ -121,6 +121,9 @@ local plugins = {
     end,
   },
   {
+    "nvim-treesitter/nvim-treesitter-context",
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     init = function()
       require("custom.configs.treesitter")
