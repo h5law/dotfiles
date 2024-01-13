@@ -1,11 +1,22 @@
 local null_ls = require("null-ls")
 
+-- The poktroll repo requires long lines for the errors.go files
+local specific_repo_path = "~/workspace/pokt/poktroll/"
+
+local should_disable_golines = function()
+    -- Check if the current file is 'errors.go' in the specific repository
+    local current_file = vim.fn.expand("%:p")
+    return current_file:match(specific_repo_path .. "/.*") and current_file:match("errors%.go$")
+end
+
 local sources = {
     null_ls.builtins.formatting.goimports_reviser,
-    null_ls.builtins.formatting.golines.with({
+    should_disable_golines and nil or null_ls.builtins.formatting.golines.with({
       extra_args = {
-        "--max-len=150",
+        "--max-len=120",
         "--base-formatter=gofumpt",
+        "--tab-width=4",
+        "--ignore-generated",
       },
     }),
     null_ls.builtins.formatting.rustfmt,
