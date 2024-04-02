@@ -1,14 +1,17 @@
 [user]
     name = h5law 
-    email = h5law.curve514@passfwd.com
-    signingKey = F80B0DE79DC5204F561A0DE35A64130002E4B553
+    email = dev@h5law.com
+    signingKey = 5E13EF45407F11ED9D86A79F51F7D17EC2E1BBE3
 
 [commit]
     gpgSign = true
 
-[credential]
-    helper = store --file ~/.sec/h5law-github-pat.txt
-    helper = cache --timeout 3600
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
 
 [init]
     defaultBranch = main

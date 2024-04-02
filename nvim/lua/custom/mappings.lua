@@ -201,6 +201,51 @@ M.mkdp = {
   },
 }
 
+M.copilot = {
+  plugin = true,
+  i = {
+    ["<C-l>"] = {
+      function()
+        return vim.fn["copilot#Accept"]()
+      end,
+      "Accept completion (Ctrl + l)",
+      opts = { expr = true, silent = true },
+    },
+
+    ["<C-;>"] = {
+      function()
+        return vim.fn["copilot#Complete"]()
+      end,
+      "Manually trigger suggestions (Ctrl + ;)",
+      opts = { expr = true, silent = true },
+    },
+
+    ["<C-,>"] = {
+      function()
+        return vim.fn["copilot#CycleCompletions"](-1)
+      end,
+      "Previous suggestion (Ctrl + ,)",
+      opts = { expr = true, silent = true },
+    },
+
+    ["<C-.>"] = {
+      function()
+        return vim.fn["copilot#CycleCompletions"](1)
+      end,
+      "Next suggestion (Ctrl + .)",
+      opts = { expr = true, silent = true },
+    },
+
+    ["<C-x>"] = {
+      function()
+        return vim.fn["copilot#Clear"]()
+      end,
+      "Clear current suggestion (Ctrl + x)",
+      opts = { expr = true, silent = true },
+    },
+  },
+}
+
 M.codeium = {
   plugin = true,
   i = {
@@ -249,46 +294,6 @@ M.codeium = {
       opts = { expr = true, silent = true },
     },
   },
-}
-
-M.vimtex = {
-  plugin = true,
-  n = {
-    ["<leader>toc"] = {
-      "<cmd> VimtexTocOpen <CR>",
-      "Open table of contents"
-    },
-
-    ["<leader>tlg"] = {
-      "<cmd> VimtexLog <CR>",
-      "Show a message log"
-    },
-
-    ["<leader>tle"] = {
-      "<cmd> VimtexErrors <CR>",
-      "Show any errors or warnings"
-    },
-
-    ["<leader>tsc"] = {
-      "<cmd> VimtexStop <CR>",
-      "Stop compilation for the current project"
-    },
-
-    ["<leader>tsa"] = {
-      "<cmd> VimtexStopAll <CR>",
-      "Stop compilation for all open projects"
-    },
-
-    ["<leader>tcf"] = {
-      "<cmd> VimtexClean <CR>",
-      "Clean all auxiliary files"
-    },
-
-    ["<leader>tv"] = {
-      "<cmd> VimtexView <CR>",
-      "View the pdf of the current project"
-    }
-  }
 }
 
 return M

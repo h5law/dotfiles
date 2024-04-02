@@ -8,9 +8,6 @@ fi
 # Source cargo
 source "$HOME/.cargo/env"
 
-# asdf
-source /opt/homebrew/opt/asdf/libexec/asdf.sh
-
 # Oh My Zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git zsh-syntax-highlighting vi-mode)
@@ -59,6 +56,8 @@ fi
 export GPG_H10LAW="F80B0DE79DC5204F561A0DE35A64130002E4B553"
 export GPG_HRRYSLW="B3207D975183E180A43D8726284D5CD4CBC3D5E4"
 export GPG_H5LTD="1A98952E1E6857DB08E6182D63D8D652AF94E8AB"
+export GPG_DEV="5E13EF45407F11ED9D86A79F51F7D17EC2E1BBE3"
+export GPG_SWOLE="1D5A10AE11756A935EEA0278DF3FFDF4F6DCB06C"
 
 # enable GPG signing
 export GPG_TTY=$TTY
@@ -67,22 +66,37 @@ export GPG_TTY=$TTY
 # FUNCTIONS #
 #############
 function encrypt() {
-    local file=$1
-    if [[ -z "$file" ]]; then
-        echo "Please provide a filename."
-        return 1
-    fi
+    local filename="$1"
+    local recipient1=""
+    shift  # Remove the first argument (filename) from the list of arguments
+    local recipients=()
 
-    if [[ ! -f "$file" ]]; then
-        echo "File '$file' does not exist."
-        return 1
-    fi
+    # Iterate through the remaining arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -r)
+                # If the argument is -r, add the next argument to the recipients array
+                recipients+=("$2")
+                shift  # Move to the next argument after the recipient
+                ;;
+            *)
+                # If recipient1 is empty, assign the current argument to it
+                if [[ -z "$recipient1" ]]; then
+                    recipient1="$1"
+                else
+                    # Otherwise, add it to the recipients array
+                    recipients+=("$1")
+                fi
+                ;;
+        esac
+        shift  # Move to the next argument
+    done
 
     # Remove the extension from the filename
     local filename_without_extension="${file%.*}"
 
-    # Encrypt the file and output with .asc extension
-    gpg -ao "${filename_without_extension}.asc" -r "$GPG_H10LAW" -u "$GPG_H10LAW" -se "$file"
+    # Call the encrypt function with the filename, recipient1 as -u, and other recipients
+    encrypt -ao "${filename_without_extension}.asc" -u "$recipient1" "${recipients[@]}" -se "$filename" 
 }
 
 function gch {
@@ -105,18 +119,12 @@ alias tree="tree -ACFQahv --dirsfirst -i='.git,node_modules'"
 # desired flag aliases
 alias cp="cp -v"
 alias mkdir="mkdir -pv"
-alias mkcd="mkdir ${1} && cd ${1}"
 alias rm="rm -v"
 alias mv="mv -v"
 
 # custom aliases
-alias mkcd="mkdir -pv ${1} && cd ${1}"
-alias newrust="echo '// This file is part of <package-name>.
-// Copyright (c) <year> h5law <h5law.curve514@passfwd.com>.
-// See LICENSE for licensing information.
-//
-// Authors:
-// - h5law <h5law.curve514@passfwd.com>' > ${1}"
+alias mkcd="mkdir ${1} && cd ${1}"
+alias g="git"
 
 # spelling aliases
 alias vim="nvim"
@@ -132,7 +140,6 @@ alias fim="nvim \$(fzf)"
 alias sd="cd \$(find * -type d | fzf)"
 
 # command aliases
-alias pari="/usr/local/bin/gp ${@}"
 alias git_aliases="git config --get-regexp alias"
 
 ####################
@@ -141,7 +148,6 @@ alias git_aliases="git config --get-regexp alias"
 
 # Auto completions
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.pocket.zsh ] && source ~/.pocket.zsh
 [ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

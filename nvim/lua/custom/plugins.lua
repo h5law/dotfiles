@@ -22,11 +22,17 @@ local plugins = {
       require("null-ls").setup(opts)
     end,
   },
+  -- {
+  --   "Exafunction/codeium.vim",
+  --   event = "BufEnter",
+  --   config = function()
+  --     require("core.utils").load_mappings("codeium")
+  --   end,
+  -- },
   {
-    "Exafunction/codeium.vim",
-    event = "BufEnter",
+    "github/copilot.vim",
     config = function()
-      require("core.utils").load_mappings("codeium")
+      require("core.utils").load_mappings("copilot")
     end,
   },
   {
@@ -49,7 +55,6 @@ local plugins = {
         "markdown-toc",
         "mdformat",
         "prettierd",
-        "deno",
         "lua-language-server",
         "shellcheck",
       },
@@ -111,16 +116,6 @@ local plugins = {
     end,
   },
   {
-    "Louis-Amas/noir-vim-support",
-  },
-  {
-    "lervag/vimtex",
-    ft = { "tex", "latex" },
-    config = function()
-      require("core.utils").load_mappings("vimtex")
-    end,
-  },
-  {
     "nvim-treesitter/nvim-treesitter-context",
   },
   {
@@ -141,20 +136,17 @@ local plugins = {
         "typescript",
         "tsx",
         "json",
-        -- "vue", "svelte",
+        "vue",
+        "svelte",
 
-       -- low level
+       -- system level
         "c",
         "zig",
         "rust",
         "go",
 
-        -- Latex
-        "bibtex",
-
         -- DSL
         "solidity",
-        "noir",
       },
     },
   },
