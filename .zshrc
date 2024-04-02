@@ -66,6 +66,11 @@ export GPG_TTY=$TTY
 # FUNCTIONS #
 #############
 function encrypt() {
+    if [[ $# -lt 2 ]]; then
+        echo "Usage: encrypt <USING KEY_ID> [<recipient1> ...] <input_file>"
+        return 1
+    fi
+
     local filename="$1"
     local recipient1=""
     shift  # Remove the first argument (filename) from the list of arguments
@@ -74,19 +79,13 @@ function encrypt() {
     # Iterate through the remaining arguments
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            -r)
-                # If the argument is -r, add the next argument to the recipients array
-                recipients+=("$2")
-                shift  # Move to the next argument after the recipient
-                ;;
             *)
                 # If recipient1 is empty, assign the current argument to it
                 if [[ -z "$recipient1" ]]; then
                     recipient1="$1"
-                else
-                    # Otherwise, add it to the recipients array
-                    recipients+=("$1")
                 fi
+                # Add the current argument to the list of recipients
+                recipients+=("$1")
                 ;;
         esac
         shift  # Move to the next argument
