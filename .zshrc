@@ -10,7 +10,7 @@ source "$HOME/.cargo/env"
 
 # Oh My Zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git zsh-syntax-highlighting vi-mode)
+plugins=(git vi-mode)
 zstyle ':omz:update' mode auto
 source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
@@ -53,50 +53,50 @@ else
 fi
 
 # Export GPG_KEYs
-export GPG_H10LAW="F80B0DE79DC5204F561A0DE35A64130002E4B553"
 export GPG_HRRYSLW="B3207D975183E180A43D8726284D5CD4CBC3D5E4"
-export GPG_H5LTD="1A98952E1E6857DB08E6182D63D8D652AF94E8AB"
+export GPG_H10LAW="F80B0DE79DC5204F561A0DE35A64130002E4B553"
 export GPG_DEV="5E13EF45407F11ED9D86A79F51F7D17EC2E1BBE3"
 export GPG_SWOLE="1D5A10AE11756A935EEA0278DF3FFDF4F6DCB06C"
 
 # enable GPG signing
 export GPG_TTY=$TTY
 
+# bat
+export BAT_PAGER="less -RF"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 #############
 # FUNCTIONS #
 #############
 function encrypt() {
     if [[ $# -lt 2 ]]; then
-        echo "Usage: encrypt <USING KEY_ID> [<recipient1> ...] <input_file>"
+        echo "Usage: encrypt <input_file> <USING KEY_ID> [RECIPIENT KEY_ID]"
         return 1
     fi
 
     local filename="$1"
-    local recipient1=""
-    shift  # Remove the first argument (filename) from the list of arguments
-    local recipients=()
+    local sender="$2"
 
-    # Iterate through the remaining arguments
-    while [[ $# -gt 0 ]]; do
-        case "$1" in
-            *)
-                # If recipient1 is empty, assign the current argument to it
-                if [[ -z "$recipient1" ]]; then
-                    recipient1="$1"
-                fi
-                # Add the current argument to the list of recipients
-                recipients+=("$1")
-                ;;
-        esac
-        shift  # Move to the next argument
-    done
+    if [[ $# -gt 3 ]]; then
+        echo "Usage: encrypt <input_file> <USING KEY_ID> [RECIPIENT KEY_ID]"
+        return 1
+    fi
 
-    # Remove the extension from the filename
-    local filename_without_extension="${file%.*}"
+    local recipient
+    if [[ $# -eq 3 ]]; then
+        recipient="$3"
+    fi
 
-    # Call the encrypt function with the filename, recipient1 as -u, and other recipients
-    encrypt -ao "${filename_without_extension}.asc" -u "$recipient1" "${recipients[@]}" -se "$filename" 
+    local filename_without_extension="${filename%.*}"
+
+    # Call gpg with appropriate options based on the presence of the recipient
+    if [[ -n $recipient ]]; then
+        gpg -ao "${filename_without_extension}.asc" -u "$sender" -r "$sender" -r "$recipient" -se "$filename"
+    else
+        gpg -ao "${filename_without_extension}.asc" -u "$sender" -r "$sender" -se "$filename"
+    fi
 }
+
 
 function gch {
     git checkout $1
@@ -140,6 +140,7 @@ alias sd="cd \$(find * -type d | fzf)"
 
 # command aliases
 alias git_aliases="git config --get-regexp alias"
+alias cat="bat -pp"
 
 ####################
 # AUTO COMPLETIONS #
@@ -148,6 +149,9 @@ alias git_aliases="git config --get-regexp alias"
 # Auto completions
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
+
+# Syntax highlighting
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
