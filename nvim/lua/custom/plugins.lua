@@ -120,9 +120,6 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    init = function()
-      require("custom.configs.treesitter")
-    end,
     opts = {
       ensure_installed = {
         -- defaults 

@@ -204,43 +204,48 @@ M.mkdp = {
 M.copilot = {
   plugin = true,
   i = {
-    ["<C-l>"] = {
+    -- Option + l
+    ["¬"] = {
       function()
         return vim.fn["copilot#Accept"]()
       end,
-      "Accept completion (Ctrl + l)",
+      "Accept completion (Option + l)",
       opts = { expr = true, silent = true },
     },
 
-    ["<C-;>"] = {
+    -- Option + Shift + ;
+    ["<Ú>"] = {
       function()
         return vim.fn["copilot#Complete"]()
       end,
-      "Manually trigger suggestions (Ctrl + ;)",
+      "Manually trigger suggestions (Option + Shift + ;)",
       opts = { expr = true, silent = true },
     },
 
-    ["<C-,>"] = {
+    -- Option+;
+    ["<…>"] = {
       function()
         return vim.fn["copilot#CycleCompletions"](-1)
       end,
-      "Previous suggestion (Ctrl + ,)",
+      "Previous suggestion (Option + ,)",
       opts = { expr = true, silent = true },
     },
 
-    ["<C-.>"] = {
+    -- Option + ,
+    ["<≤>"] = {
       function()
         return vim.fn["copilot#CycleCompletions"](1)
       end,
-      "Next suggestion (Ctrl + .)",
+      "Next suggestion (Option + ,)",
       opts = { expr = true, silent = true },
     },
 
-    ["<C-x>"] = {
+    -- Option+x
+    ["<≈>"] = {
       function()
         return vim.fn["copilot#Clear"]()
       end,
-      "Clear current suggestion (Ctrl + x)",
+      "Clear current suggestion (Option + x)",
       opts = { expr = true, silent = true },
     },
   },
