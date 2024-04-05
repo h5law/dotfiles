@@ -11,10 +11,10 @@
 
 [credential "https://github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [init]
     defaultBranch = main
@@ -53,6 +53,8 @@
 	ll    = log --pretty=better-oneline --numstat
 	details = "!f() { git ll "$1"^.."$1"; }; f"
 
+    p    = push
+    pf   = push --force
     pull = pull --ff-only
     main = checkout main
     last = checkout -
