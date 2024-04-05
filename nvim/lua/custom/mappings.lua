@@ -39,6 +39,14 @@ M.common = {
     ["P"] = { '"+P', "Paste before from Clipboard" },
   },
 
+  -- normal mode
+  n = {
+    ["+"] = { "<cmd>vertical resize +5<CR>", "Increase window width" },
+    ["_"] = { "<cmd>vertical resize -5<CR>", "Decrease window width" },
+    ["="] = { "<cmd>horizontal resize +5<CR>", "Increase window height" },
+    ["-"] = { "<cmd>horizontal resize -5<CR>", "Decrease window height" },
+  },
+
   -- console mode
   c = {
     ["W"] = {"w", "Save the current buffer"},

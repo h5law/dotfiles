@@ -1,6 +1,6 @@
 local opts = {
   go="go",
-  goimport="gopls",
+  goimports="gopls",
   gofmt = "gofumpt",
   tag_transform = "snakecase",
   tag_options = "json=omitempty",

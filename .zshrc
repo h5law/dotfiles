@@ -180,6 +180,7 @@ alias sd="cd \$(find * -type d | fzf)"
 alias git_aliases="git config --get-regexp alias"
 alias cat="bat -pp"
 alias gt="gpg-tui"
+alias update="~/.local/bin/updator.sh"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
