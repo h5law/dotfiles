@@ -70,6 +70,10 @@ export GPG_TTY=$TTY
 export BAT_PAGER="less -RF"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# llvm
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
 #############
 # FUNCTIONS #
 #############
@@ -193,6 +197,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.fzf-integration.zsh ] && source ~/.fzf-integration.zsh
 [ -f ~/.atuin-init.zsh ] && source ~/.atuin-init.zsh
 [ -f ~/.atuin-completions.zsh ] && source ~/.atuin-completions.zsh
+[ -f ~/.hugo-completions.zsh ] && source ~/.hugo-completions.zsh
 
 # pkgx shellcode
 source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode

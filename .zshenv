@@ -4,6 +4,8 @@ export PATH=/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 export PATH="/bin:/sbin:$HOME/.local/bin:${PATH}"
 # homebrew
 export PATH="$PATH:/opt/homebrew/bin"
+# Homebrew functions
+export FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
 # codeium
 export PATH="$PATH:/Users/harry/.codeium/bin"
 # go
@@ -13,6 +15,5 @@ export PATH="$PATH:$GOPATH:$GOPATH/bin"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-# Homebrew functions
-export FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
-. "$HOME/.cargo/env"
+# llvm
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
