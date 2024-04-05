@@ -102,7 +102,7 @@ function mkcd() {
 
     local dir="$*"
 
-    printf "Creating directory: %s\t" "$dir"
+    echo "Creating directory: ${dir}"
     /bin/mkdir -p "${dir}" && cd "${dir}"
 }
 
