@@ -22,19 +22,19 @@ local plugins = {
       require("null-ls").setup(opts)
     end,
   },
-  -- {
-  --   "Exafunction/codeium.vim",
-  --   event = "BufEnter",
-  --   config = function()
-  --     require("core.utils").load_mappings("codeium")
-  --   end,
-  -- },
   {
-    "github/copilot.vim",
+    "Exafunction/codeium.vim",
+    event = "BufEnter",
     config = function()
-      require("core.utils").load_mappings("copilot")
+      require("core.utils").load_mappings("codeium")
     end,
   },
+  -- {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     require("core.utils").load_mappings("copilot")
+  --   end,
+  -- },
   {
     "williamboman/mason.nvim",
     opts = {

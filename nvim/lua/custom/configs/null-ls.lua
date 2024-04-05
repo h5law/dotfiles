@@ -19,19 +19,13 @@ local sources = {
         "--ignore-generated",
       },
     }),
-    null_ls.builtins.formatting.rustfmt,
     null_ls.builtins.formatting.black,
-    null_ls.builtins.formatting.eslint_d,
-    null_ls.builtins.formatting.prettierd,
     null_ls.builtins.formatting.mdformat,
-    null_ls.builtins.formatting.markdown_toc,
 
     null_ls.builtins.diagnostics.mypy,
-    null_ls.builtins.diagnostics.ruff,
     null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.revive,
     null_ls.builtins.diagnostics.protolint,
-    null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.golangci_lint,
 }
 

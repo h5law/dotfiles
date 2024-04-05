@@ -2,7 +2,6 @@ local opts = {
   go="go",
   goimport="gopls",
   gofmt = "gofumpt",
-  max_line_len = 150,
   tag_transform = "snakecase",
   tag_options = "json=omitempty",
   comment_placeholder = "" ,  -- comment placeholder e.g. 󰟓       

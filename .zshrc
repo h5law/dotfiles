@@ -17,9 +17,6 @@ source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 # enable terminal linewrap
 setterm -linewrap on 2> /dev/null
 
-# Enable iterm2 shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 ###########
 # EXPORTS #
 ###########
@@ -97,6 +94,17 @@ function encrypt() {
     fi
 }
 
+function mkcd() {
+    if [[ $# -lt 1 ]]; then
+        echo "Usage: mkcd <directory>"
+        return 1
+    fi
+
+    local dir="$*"
+
+    printf "Creating directory: %s\t" "$dir"
+    /bin/mkdir -p "${dir}" && cd "${dir}"
+}
 
 function gch {
     git checkout $1
@@ -122,7 +130,6 @@ alias rm="rm -v"
 alias mv="mv -v"
 
 # custom aliases
-alias mkcd="mkdir ${1} && cd ${1}"
 alias g="git"
 
 # spelling aliases
@@ -142,12 +149,17 @@ alias sd="cd \$(find * -type d | fzf)"
 alias git_aliases="git config --get-regexp alias"
 alias cat="bat -pp"
 
-####################
-# AUTO COMPLETIONS #
-####################
+#####################################
+# AUTO COMPLETIONS AND INTEGRATIONS #
+#####################################
 
-# Auto completions
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Enable iterm2 shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Auto completions and integrations
+[ -f ~/.fzf-integration.zsh ] && source ~/.fzf-integration.zsh
+[ -f ~/.atuin-init.zsh ] && source ~/.atuin-init.zsh
+[ -f ~/.atuin-completions.zsh ] && source ~/.atuin-completions.zsh
 [ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
 
 # Syntax highlighting
