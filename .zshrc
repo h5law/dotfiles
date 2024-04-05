@@ -5,14 +5,22 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+#######################
+# BINARY INTEGRATIONS #
+#######################
+
 # Source cargo
 source "$HOME/.cargo/env"
+[ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
 
 # Oh My Zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git vi-mode)
 zstyle ':omz:update' mode auto
 source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
+
+# zsh syntax highlighting
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # enable terminal linewrap
 setterm -linewrap on 2> /dev/null
@@ -171,6 +179,7 @@ alias sd="cd \$(find * -type d | fzf)"
 # command aliases
 alias git_aliases="git config --get-regexp alias"
 alias cat="bat -pp"
+alias gt="gpg-tui"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
@@ -183,10 +192,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.fzf-integration.zsh ] && source ~/.fzf-integration.zsh
 [ -f ~/.atuin-init.zsh ] && source ~/.atuin-init.zsh
 [ -f ~/.atuin-completions.zsh ] && source ~/.atuin-completions.zsh
-[ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
 
-# Syntax highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# pkgx shellcode
+source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
