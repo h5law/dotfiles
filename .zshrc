@@ -94,6 +94,29 @@ function encrypt() {
     fi
 }
 
+function clearsign() {
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: clearsign <input_file> <SIGNING KEY_ID>"
+        return 1
+    fi
+
+    local filename="$1"
+
+    gpg --clearsign -o "${filename}.clearsign.asc" -u "$2" "$filename"
+}
+
+function sign() {
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: sign <input_file> <SIGNING KEY_ID>"
+        return 1
+    fi
+
+    local filename="$1"
+    local filename_without_extension="${filename%.*}"
+
+    gpg -ao "${filename_without_extension}.sig" -u "$2" -s "$filename"
+}
+
 function mkcd() {
     if [[ $# -lt 1 ]]; then
         echo "Usage: mkcd <directory>"
@@ -102,7 +125,7 @@ function mkcd() {
 
     local dir="$*"
 
-    echo "Creating directory: ${dir}"
+    echo -e "\033[1mCreating directory\033[0m: ${dir}"
     /bin/mkdir -p "${dir}" && cd "${dir}"
 }
 
