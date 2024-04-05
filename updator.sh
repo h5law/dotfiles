@@ -2,7 +2,7 @@
 
 GUM_SPIN_SHOW_OUTPUT=true # buggy for some reason
 
-tools="brew cargo gh go rustup pkgx"
+tools="brew cargo gh go rustup pkgx pip3 modular"
 choices=""
 
 # check which tools are installed
@@ -51,6 +51,13 @@ for choice in $choices; do
         echo "Updating pkgx..."
         pkgx --sync --verbose
         pkgx --update --verbose
+    elif [ "$choice" = "pip3" ]; then
+        echo "Updating pip3..."
+        cmd='pip3 --disable-pip-version-check list --outdated --format=json | python3 -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pipx install'
+        gum spin -s minidot --title "Running pip3 updator" -- $cmd
+    elif [ "$choice" = "modular" ]; then
+        echo "Updating Modular Packages..."
+        modular list-packages | awk '{print $1}' | xargs -I {} modular update {}
     fi
 done
 echo "Done!"

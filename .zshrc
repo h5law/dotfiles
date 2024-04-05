@@ -74,6 +74,9 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
+# Modular
+export MODULAR_HOME="/Users/harry/.modular"
+
 #############
 # FUNCTIONS #
 #############
@@ -185,6 +188,8 @@ alias git_aliases="git config --get-regexp alias"
 alias cat="bat -pp"
 alias gt="gpg-tui"
 alias update="~/.local/bin/updator.sh"
+alias cwctr="cargo watch -x check -x test -x run"
+alias tarp="cargo tarpaulin --ignore-tests"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
@@ -198,6 +203,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.atuin-init.zsh ] && source ~/.atuin-init.zsh
 [ -f ~/.atuin-completions.zsh ] && source ~/.atuin-completions.zsh
 [ -f ~/.hugo-completions.zsh ] && source ~/.hugo-completions.zsh
+# poetry
+fpath+=~/.zfunc
+autoload -Uz compinit && compinit
 
 # pkgx shellcode
 source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode

@@ -17,3 +17,5 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # llvm
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+# mojo
+export PATH="/Users/harry/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
