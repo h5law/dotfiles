@@ -15,7 +15,11 @@ export PATH="$PATH:$GOPATH:$GOPATH/bin"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
 # llvm
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 # mojo
 export PATH="/Users/harry/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
+# Source cargo
+source "$HOME/.cargo/env"
+

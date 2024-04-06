@@ -9,10 +9,6 @@ fi
 # BINARY INTEGRATIONS #
 #######################
 
-# Source cargo
-source "$HOME/.cargo/env"
-[ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
-
 # Oh My Zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git vi-mode)
@@ -144,6 +140,17 @@ function mkcd() {
     /bin/mkdir -p "${dir}" && cd "${dir}"
 }
 
+function copy() {
+    if [[ $# -lt 1 ]]; then
+        echo "Usage: copy <file>"
+        return 1
+    fi
+
+    local file="$*"
+
+    cat -v "${file}" | pbcopy
+}
+
 function gch {
     git checkout $1
     git branch --set-upstream-to=origin
@@ -167,9 +174,6 @@ alias mkdir="mkdir -pv"
 alias rm="rm -v"
 alias mv="mv -v"
 
-# custom aliases
-alias g="git"
-
 # spelling aliases
 alias vim="nvim"
 alias mvim="nvim"
@@ -184,6 +188,7 @@ alias fim="nvim \$(fzf)"
 alias sd="cd \$(find * -type d | fzf)"
 
 # command aliases
+alias g="git"
 alias git_aliases="git config --get-regexp alias"
 alias cat="bat -pp"
 alias gt="gpg-tui"
