@@ -41,10 +41,11 @@ M.common = {
 
   -- normal mode
   n = {
-    ["+"] = { "<cmd>vertical resize +5<CR>", "Increase window width" },
-    ["_"] = { "<cmd>vertical resize -5<CR>", "Decrease window width" },
-    ["="] = { "<cmd>horizontal resize +5<CR>", "Increase window height" },
-    ["-"] = { "<cmd>horizontal resize -5<CR>", "Decrease window height" },
+    ["<leader>sp"] = { "ggi SPDX-License-Identifier: <ESC>o<ESC>" },
+    ["+"] = { "<CMD>vertical resize +5<CR>", "Increase window width" },
+    ["_"] = { "<CMD>vertical resize -5<CR>", "Decrease window width" },
+    ["="] = { "<CMD>horizontal resize +5<CR>", "Increase window height" },
+    ["-"] = { "<CMD>horizontal resize -5<CR>", "Decrease window height" },
   },
 
   -- console mode
