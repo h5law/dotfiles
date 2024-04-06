@@ -10,6 +10,33 @@ local should_disable_golines = function()
 end
 
 local sources = {
+    null_ls.builtins.completion.spell,
+
+    null_ls.builtins.diagnostics.actionlint,
+    null_ls.builtins.diagnostics.alex,
+    null_ls.builtins.diagnostics.buf,
+    null_ls.builtins.diagnostics.checkmake,
+    null_ls.builtins.diagnostics.cmake_lint,
+    null_ls.builtins.diagnostics.codespell,
+    null_ls.builtins.diagnostics.cppcheck,
+    null_ls.builtins.diagnostics.golangci_lint,
+    null_ls.builtins.diagnostics.markdownlint,
+    null_ls.builtins.diagnostics.mypy,
+    null_ls.builtins.diagnostics.proselint,
+    null_ls.builtins.diagnostics.protolint,
+    null_ls.builtins.diagnostics.revive,
+    null_ls.builtins.diagnostics.todo_comments,
+    null_ls.builtins.diagnostics.vacuum,
+    null_ls.builtins.diagnostics.yamllint,
+    null_ls.builtins.diagnostics.zsh,
+
+    null_ls.builtins.formatting.blackd,
+    null_ls.builtins.formatting.buf,
+    null_ls.builtins.formatting.cbfmt,
+    null_ls.builtins.formatting.clang_format,
+    null_ls.builtins.formatting.cmake_format,
+    null_ls.builtins.formatting.codespell,
+    null_ls.builtins.formatting.forge_fmt,
     null_ls.builtins.formatting.goimports_reviser,
     should_disable_golines and nil or null_ls.builtins.formatting.golines.with({
       extra_args = {
@@ -19,14 +46,12 @@ local sources = {
         "--ignore-generated",
       },
     }),
-    null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.mdformat,
-
-    null_ls.builtins.diagnostics.mypy,
-    null_ls.builtins.diagnostics.codespell,
-    null_ls.builtins.diagnostics.revive,
-    null_ls.builtins.diagnostics.protolint,
-    null_ls.builtins.diagnostics.golangci_lint,
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.formatting.protolint,
+    -- null_ls.builtins.formatting.remark, -- md dependds on remark-cli
+    null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.usort,
 }
 
 -- local gotest = require("go.null_ls").gotest()

@@ -98,13 +98,15 @@ local plugins = {
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
     init = function()
+      vim.g.mkdp_auto_start = 1
+      vim.g.mkdp_auto_close = 0
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_browser = "/Applications/Arc.app/Contents/MacOS/Arc"
       require("core.utils").load_mappings("mkdp")
     end,
-    ft = { "markdown" },
   },
   {
     "chentoast/marks.nvim",
@@ -114,6 +116,14 @@ local plugins = {
     init = function(_, opts)
       require("null-ls").setup(opts)
     end,
+  },
+  {
+    "folke/neodev.nvim",
+    opts = {},
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
