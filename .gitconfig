@@ -35,6 +35,7 @@
 
 [alias]
     c  = commit
+    cm = commit -m
     s  = status
     d  = diff
     dc = diff --cached
@@ -59,10 +60,11 @@
     main = checkout main
     last = checkout -
 
+    a    = add
     # Add all exisisting files and show status
-	a   = !cd ${GIT_PREFIX:-.} && git add . && git s
+	aa   = !cd ${GIT_PREFIX:-.} && git add . && git s
     # Add all files, exisisting and new and show status  
-	aa  = !git add -A && git s
+	aan  = !git add -A && git s
     # Add all exisisting files and commit
  	ac  = !cd ${GIT_PREFIX:-.} && git add . && git c
     # Add all files, exisisting and new and commit
