@@ -8,7 +8,7 @@ M.disabled = {
     ["<A-i>"] = "",     -- toggle floating term
     ["<A-h>"] = "",     -- toggle horizontal term
     ["<A-v>"] = "",     -- toggle vertical term
-    ["<leader>h"] = "", -- new horizontal term 
+    ["<leader>h"] = "", -- new horizontal term
     ["<leader>v"] = "", -- new vertical term
   },
 
@@ -23,9 +23,9 @@ M.disabled = {
 
   -- terminal mode
   t = {
-    ["<A-i>"] = "",     -- toggle floating term
-    ["<A-h>"] = "",     -- toggle horizontal term
-    ["<A-v>"] = "",     -- toggle vertical term
+    ["<A-i>"] = "", -- toggle floating term
+    ["<A-h>"] = "", -- toggle horizontal term
+    ["<A-v>"] = "", -- toggle vertical term
   },
 }
 
@@ -50,9 +50,9 @@ M.common = {
 
   -- console mode
   c = {
-    ["W"] = {"w", "Save the current buffer"},
-    ["X"] = {"x", "Save and exit the current buffer"},
-    ["Q"] = {"q", "Quit"},
+    ["W"] = { "w", "Save the current buffer" },
+    ["X"] = { "x", "Save and exit the current buffer" },
+    ["Q"] = { "q", "Quit" },
   },
 }
 
@@ -150,7 +150,7 @@ M.gonvim = {
     },
 
     ["<leader>gc"] = {
-      function ()
+      function()
         require("go.comment").gen()
       end
     },
@@ -166,12 +166,12 @@ M.dap = {
     },
 
     ["<leader>dus"] = {
-      function ()
+      function()
         local widgets = require("dap.ui.widgets");
         local sidebar = widgets.sidebar(widgets.scopes);
         sidebar.open();
       end,
-      "Open debuggin sidebar"
+      "Open debugging sidebar"
     },
 
     ["<leader>dso"] = {
@@ -185,14 +185,14 @@ M.dap_go = {
   plugin = true,
   n = {
     ["<leader>dgt"] = {
-      function ()
+      function()
         require("dap-go").debug_test()
       end,
       "Debug go test"
     },
 
     ["<leader>dgl"] = {
-      function ()
+      function()
         require("dap-go").debug_last()
       end,
       "Debug last go test"
@@ -206,6 +206,21 @@ M.mkdp = {
     ["<leader>mp"] = {
       "<cmd> MarkdownPreview <CR>",
       "Toggle Markdown Preview"
+    },
+  },
+}
+
+M.peek = {
+  plugin = true,
+  n = {
+    ["<leader>mpo"] = {
+      "<cmd> PeekOpen <CR>",
+      "Open peek"
+    },
+
+    ["<leader>mpc"] = {
+      "<cmd> PeekClose <CR>",
+      "Close peek"
     },
   },
 }

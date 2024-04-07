@@ -48,7 +48,7 @@ local plugins = {
         "protolint",
         "pyright",
         "mypy",
-        "black",
+        "blackd",
         "ruff",
         "solang",
         "eslint_d",
@@ -56,7 +56,11 @@ local plugins = {
         "mdformat",
         "prettierd",
         "lua-language-server",
-        "shellcheck",
+        "alex",
+        "markdownlint",
+        "buf",
+        "proselint",
+        "deno",
       },
     },
   },
@@ -76,13 +80,13 @@ local plugins = {
       require("go").setup(opts)
       require("core.utils").load_mappings("gonvim")
     end,
-    event = {"CmdlineEnter"},
-    ft = {"go", "gotmpl", "gomod", "gowork"},
+    event = { "CmdlineEnter" },
+    ft = { "go", "gotmpl", "gomod", "gowork" },
     build = ':lua require("go.install").update_all_sync()',
   },
   {
     "mfussenegger/nvim-dap",
-    init = function ()
+    init = function()
       require("core.utils").load_mappings("dap")
     end,
   },
@@ -95,17 +99,27 @@ local plugins = {
       require("core.utils").load_mappings("dap_go")
     end,
   },
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  --   build = "cd app && yarn install",
+  --   init = function()
+  --     vim.g.mkdp_auto_start = 1
+  --     vim.g.mkdp_auto_close = 0
+  --     vim.g.mkdp_filetypes = { "markdown" }
+  --     vim.g.mkdp_browser = "/Applications/Arc.app/Contents/MacOS/Arc"
+  --     require("core.utils").load_mappings("mkdp")
+  --   end,
+  -- },
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
-    init = function()
-      vim.g.mkdp_auto_start = 1
-      vim.g.mkdp_auto_close = 0
-      vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mkdp_browser = "/Applications/Arc.app/Contents/MacOS/Arc"
-      require("core.utils").load_mappings("mkdp")
+    "toppair/peek.nvim",
+    event = { "VeryLazy" },
+    build = "deno task --quiet build:fast",
+    config = function()
+      require("peek").setup()
+      vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+      vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+      require("core.utils").load_mappings("peek")
     end,
   },
   {
@@ -122,21 +136,17 @@ local plugins = {
     opts = {},
   },
   {
-    "rcarriga/nvim-dap-ui",
-    dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
-  },
-  {
     "nvim-treesitter/nvim-treesitter-context",
   },
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        -- defaults 
+        -- defaults
         "vim",
         "lua",
 
-        -- web dev 
+        -- web dev
         "html",
         "css",
         "javascript",
@@ -146,7 +156,7 @@ local plugins = {
         "vue",
         "svelte",
 
-       -- system level
+        -- system level
         "c",
         "zig",
         "rust",
