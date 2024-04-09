@@ -139,7 +139,7 @@ function mkcd() {
 
     local dir="$*"
 
-    echo -e "\033[1mCreating directory\033[0m: ${dir}"
+    echo -e "\033[1mCreating & moving to directory\033[0m: ${dir}"
     /bin/mkdir -p "${dir}" && cd "${dir}"
 }
 
@@ -170,7 +170,7 @@ function gcb {
 ###########
 
 # ls 
-alias tree="tree -ACFQahv --dirsfirst -i='.git,node_modules'"
+alias tree="tree -ACFQahv --dirsfirst -I '.git,node_modules'"
 
 # desired flag aliases
 alias cp="cp -v"
