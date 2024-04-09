@@ -29,6 +29,24 @@ local plugins = {
       require("core.utils").load_mappings("codeium")
     end,
   },
+  {
+    "conweller/findr.vim",
+    init = function()
+      require("core.utils").load_mappings("findr")
+    end,
+  },
+  {
+    "folke/zen-mode.nvim",
+    dependencies = {
+      "folke/twilight.nvim",
+    },
+    opts = function(_, opts)
+      return require("custom.configs.zenmode")
+    end,
+    init = function()
+      require("core.utils").load_mappings("zenmode")
+    end,
+  },
   -- {
   --   "github/copilot.vim",
   --   config = function()

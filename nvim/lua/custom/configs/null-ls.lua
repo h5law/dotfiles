@@ -4,54 +4,52 @@ local null_ls = require("null-ls")
 local specific_repo_path = "~/workspace/pokt/poktroll/"
 
 local should_disable_golines = function()
-    -- Check if the current file is 'errors.go' in the specific repository
-    local current_file = vim.fn.expand("%:p")
-    return current_file:match(specific_repo_path .. "/.*") and current_file:match("errors%.go$")
+  -- Check if the current file is 'errors.go' in the specific repository
+  local current_file = vim.fn.expand("%:p")
+  return current_file:match(specific_repo_path .. "/.*") and current_file:match("errors%.go$")
 end
 
 local sources = {
-    null_ls.builtins.completion.spell,
+  null_ls.builtins.diagnostics.actionlint,
+  null_ls.builtins.diagnostics.alex,
+  null_ls.builtins.diagnostics.buf,
+  null_ls.builtins.diagnostics.checkmake,
+  null_ls.builtins.diagnostics.cmake_lint,
+  null_ls.builtins.diagnostics.codespell,
+  null_ls.builtins.diagnostics.cppcheck,
+  null_ls.builtins.diagnostics.golangci_lint,
+  null_ls.builtins.diagnostics.markdownlint,
+  null_ls.builtins.diagnostics.mypy,
+  null_ls.builtins.diagnostics.proselint,
+  null_ls.builtins.diagnostics.protolint,
+  null_ls.builtins.diagnostics.revive,
+  null_ls.builtins.diagnostics.todo_comments,
+  null_ls.builtins.diagnostics.vacuum,
+  null_ls.builtins.diagnostics.yamllint,
+  null_ls.builtins.diagnostics.zsh,
 
-    null_ls.builtins.diagnostics.actionlint,
-    null_ls.builtins.diagnostics.alex,
-    null_ls.builtins.diagnostics.buf,
-    null_ls.builtins.diagnostics.checkmake,
-    null_ls.builtins.diagnostics.cmake_lint,
-    null_ls.builtins.diagnostics.codespell,
-    null_ls.builtins.diagnostics.cppcheck,
-    null_ls.builtins.diagnostics.golangci_lint,
-    null_ls.builtins.diagnostics.markdownlint,
-    null_ls.builtins.diagnostics.mypy,
-    null_ls.builtins.diagnostics.proselint,
-    null_ls.builtins.diagnostics.protolint,
-    null_ls.builtins.diagnostics.revive,
-    null_ls.builtins.diagnostics.todo_comments,
-    null_ls.builtins.diagnostics.vacuum,
-    null_ls.builtins.diagnostics.yamllint,
-    null_ls.builtins.diagnostics.zsh,
-
-    null_ls.builtins.formatting.blackd,
-    null_ls.builtins.formatting.buf,
-    null_ls.builtins.formatting.cbfmt,
-    null_ls.builtins.formatting.clang_format,
-    null_ls.builtins.formatting.cmake_format,
-    null_ls.builtins.formatting.codespell,
-    null_ls.builtins.formatting.forge_fmt,
-    null_ls.builtins.formatting.goimports_reviser,
-    should_disable_golines and nil or null_ls.builtins.formatting.golines.with({
-      extra_args = {
-        "--max-len=120",
-        "--base-formatter=gofumpt",
-        "--tab-width=4",
-        "--ignore-generated",
-      },
-    }),
-    null_ls.builtins.formatting.mdformat,
-    null_ls.builtins.formatting.prettierd,
-    null_ls.builtins.formatting.protolint,
-    -- null_ls.builtins.formatting.remark, -- md dependds on remark-cli
-    null_ls.builtins.formatting.shfmt,
-    null_ls.builtins.formatting.usort,
+  null_ls.builtins.formatting.blackd,
+  null_ls.builtins.formatting.buf,
+  null_ls.builtins.formatting.cbfmt,
+  null_ls.builtins.formatting.clang_format,
+  null_ls.builtins.formatting.cmake_format,
+  null_ls.builtins.formatting.codespell,
+  null_ls.builtins.formatting.forge_fmt,
+  null_ls.builtins.formatting.goimports_reviser,
+  should_disable_golines and nil or null_ls.builtins.formatting.golines.with({
+    extra_args = {
+      "--max-len=120",
+      "--base-formatter=gofumpt",
+      "--tab-width=4",
+      "--ignore-generated",
+    },
+  }),
+  null_ls.builtins.formatting.mdformat,
+  null_ls.builtins.formatting.prettierd,
+  null_ls.builtins.formatting.protolint,
+  -- null_ls.builtins.formatting.remark, -- md dependds on remark-cli
+  null_ls.builtins.formatting.shfmt,
+  null_ls.builtins.formatting.usort,
 }
 
 -- local gotest = require("go.null_ls").gotest()
@@ -100,7 +98,7 @@ local opts = {
           vim.lsp.buf.format({
             async = false,
             filter = function()
-                return client.name == "null-ls"
+              return client.name == "null-ls"
             end,
             bufnr = bufnr,
           })
@@ -113,7 +111,7 @@ local opts = {
       for _, cli in pairs(clients) do
         if cli.supports_method("textDocument/codeAction") then
           vim.api.nvim_clear_autocmds({ group = actiongroup, buffer = bufnr })
-          -- HACK: Preform a preflight async request to the LSP, to prevent
+          -- HACK: Perform a preflight async request to the LSP, to prevent
           -- blocking when saving a buffer for the first time.
           organise_imports(bufnr, true)
 

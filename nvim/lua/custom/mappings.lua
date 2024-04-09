@@ -325,4 +325,24 @@ M.codeium = {
   },
 }
 
+M.findr = {
+  plugin = true,
+  n = {
+    ["<leader>fd"] = {
+      "<cmd> Findr <CR>",
+      "Open Findr"
+    },
+  },
+}
+
+M.zenmode = {
+  plugin = true,
+  n = {
+    ["<leader>zm"] = {
+      "<cmd> ZenMode <CR>",
+      "Toggle ZenMode"
+    },
+  },
+}
+
 return M
