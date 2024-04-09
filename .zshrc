@@ -73,6 +73,9 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 # Modular
 export MODULAR_HOME="/Users/harry/.modular"
 
+# brew
+export HOMEBREW_NO_ENV_HINTS=1
+
 #############
 # FUNCTIONS #
 #############
@@ -148,7 +151,8 @@ function copy() {
 
     local file="$*"
 
-    cat -v "${file}" | pbcopy
+    echo -e "\033[1mCopying file\033[0m: ${file}"
+    cat "${file}" | pbcopy
 }
 
 function gch {
@@ -195,6 +199,7 @@ alias gt="gpg-tui"
 alias update="~/.local/bin/updator.sh"
 alias cwctr="cargo watch -x check -x test -x run"
 alias tarp="cargo tarpaulin --ignore-tests"
+alias wipe="rm -rfd ${@}"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
