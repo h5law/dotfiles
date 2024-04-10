@@ -10,6 +10,8 @@ local should_disable_golines = function()
 end
 
 local sources = {
+  null_ls.builtins.completion.spell,
+
   null_ls.builtins.diagnostics.actionlint,
   null_ls.builtins.diagnostics.alex,
   null_ls.builtins.diagnostics.buf,
@@ -33,7 +35,7 @@ local sources = {
   null_ls.builtins.formatting.cbfmt,
   null_ls.builtins.formatting.clang_format,
   null_ls.builtins.formatting.cmake_format,
-  null_ls.builtins.formatting.codespell,
+  -- null_ls.builtins.formatting.codespell,
   null_ls.builtins.formatting.forge_fmt,
   null_ls.builtins.formatting.goimports_reviser,
   should_disable_golines and nil or null_ls.builtins.formatting.golines.with({

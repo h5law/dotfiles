@@ -12,6 +12,7 @@ vim.opt.shell = "/bin/zsh"
 
 -- Encoding
 vim.opt.fileencoding = "utf-8"
+vim.opt.cursorline = true
 
 -- Spelling
 vim.opt.spelllang = "en_gb"
@@ -46,4 +47,4 @@ vim.opt.tabstop = 4
 vim.g.codeium_disable_bindings = 1
 
 -- TreeSitter Context
-vim.api.nvim_set_hl(0, "TreesitterContextBottom", {underline = true, sp = "Grey"})
+vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true, sp = "Grey" })

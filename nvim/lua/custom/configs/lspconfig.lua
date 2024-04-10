@@ -1,8 +1,23 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
+-- neodev must be setup before lspconfig
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+})
+
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
+
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      completion = {
+        callSnippet = "Replace"
+      }
+    }
+  }
+})
 
 lspconfig.rust_analyzer.setup({
   on_attach = on_attach,
@@ -47,7 +62,7 @@ lspconfig.tsserver.setup({
   root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
 })
 
-lspconfig.solang.setup{
+lspconfig.solang.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "solidity" },

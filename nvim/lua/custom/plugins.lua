@@ -47,6 +47,18 @@ local plugins = {
       require("core.utils").load_mappings("zenmode")
     end,
   },
+  {
+    "folke/neodev.nvim",
+    opts = {},
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    init = function()
+      require("dapui").setup()
+      require("core.utils").load_mappings("dapui")
+    end
+  },
   -- {
   --   "github/copilot.vim",
   --   config = function()
