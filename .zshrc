@@ -200,6 +200,7 @@ alias update="~/.local/bin/updator.sh"
 alias cwctr="cargo watch -x check -x test -x run"
 alias tarp="cargo tarpaulin --ignore-tests"
 alias wipe="rm -rfd ${@}"
+alias tgo="tinygo"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
