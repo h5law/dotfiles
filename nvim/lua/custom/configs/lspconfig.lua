@@ -67,3 +67,16 @@ lspconfig.solang.setup {
   capabilities = capabilities,
   filetypes = { "solidity" },
 }
+
+lspconfig.zls = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {"zig"};
+  root_dir = util.root_pattern("build.zig", ".git");
+  docs = {
+    description = [[ ]];
+    default_config = {
+      root_dir = [[root_pattern("build.zig", ".git")]];
+    };
+  };
+}

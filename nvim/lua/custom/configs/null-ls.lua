@@ -1,14 +1,5 @@
 local null_ls = require("null-ls")
 
--- The poktroll repo requires long lines for the errors.go files
-local specific_repo_path = "~/workspace/pokt/poktroll/"
-
-local should_disable_golines = function()
-  -- Check if the current file is 'errors.go' in the specific repository
-  local current_file = vim.fn.expand("%:p")
-  return current_file:match(specific_repo_path .. "/.*") and current_file:match("errors%.go$")
-end
-
 local sources = {
   null_ls.builtins.completion.spell,
 
@@ -38,7 +29,7 @@ local sources = {
   -- null_ls.builtins.formatting.codespell,
   null_ls.builtins.formatting.forge_fmt,
   null_ls.builtins.formatting.goimports_reviser,
-  should_disable_golines and nil or null_ls.builtins.formatting.golines.with({
+  null_ls.builtins.formatting.golines.with({
     extra_args = {
       "--max-len=120",
       "--base-formatter=gofumpt",
@@ -86,7 +77,7 @@ local formatgroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local actiongroup = vim.api.nvim_create_augroup("LspCodeAction", {})
 
 local opts = {
-  debug = true,
+  debug = false,
   sources = sources,
   debounce = 1000,
   default_timeout = 5000,
@@ -98,7 +89,7 @@ local opts = {
         buffer = bufnr,
         callback = function()
           vim.lsp.buf.format({
-            async = false,
+            async = true,
             filter = function()
               return client.name == "null-ls"
             end,
@@ -107,8 +98,7 @@ local opts = {
         end,
       })
     end
-    local curbuf = vim.api.nvim_get_current_buf()
-    local clients = vim.lsp.buf_get_clients(curbuf)
+    local clients = vim.lsp.get_active_clients()
     if next(clients) ~= nil then
       for _, cli in pairs(clients) do
         if cli.supports_method("textDocument/codeAction") then

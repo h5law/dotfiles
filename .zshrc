@@ -11,7 +11,7 @@ fi
 
 # Oh My Zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git vi-mode)
+plugins=(git vi-mode virtualenv)
 zstyle ':omz:update' mode auto
 source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 

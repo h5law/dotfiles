@@ -75,6 +75,7 @@ local plugins = {
         "goimports",
         "goimports-reviser",
         "golines",
+        "zls",
         "protolint",
         "pyright",
         "mypy",
