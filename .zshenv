@@ -3,7 +3,7 @@ export PATH=/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 # local path
 export PATH="/bin:/sbin:$HOME/.local/bin:${PATH}"
 # homebrew
-export PATH="$PATH:/opt/homebrew/bin"
+export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/anaconda3/bin/"
 # Homebrew functions
 export FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
 # codeium

@@ -82,6 +82,9 @@
 	merge-log   = "!git ls `git merge-span .. $1`"
 	merge-diff  = "!git diff `git merge-span ... $1`"
 
+    # Continue rebasing
+    rc = rebase --continue
+
 
 [filter "lfs"]
     clean = git-lfs clean -- %f

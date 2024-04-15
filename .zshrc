@@ -155,14 +155,19 @@ function copy() {
     cat "${file}" | pbcopy
 }
 
-function gch {
+function gch() {
     git checkout $1
     git branch --set-upstream-to=origin
 }
 
-function gcb {
+function gcb() {
     git checkout -b $1
     git branch --set-upstream-to=origin
+}
+
+function venv() {
+    conda create -n $1 python=${2:-3.12}
+    conda activate $1
 }
 
 ###########
@@ -198,9 +203,11 @@ alias cat="bat -pp"
 alias gt="gpg-tui"
 alias update="~/.local/bin/updator.sh"
 alias cwctr="cargo watch -x check -x test -x run"
+alias rustdoc="RUSTDOCFLAGS='--html-in-header ./header-file.html' cargo watch -s 'cargo doc --no-deps --color always && browser-sync start -w --ss target/doc -s target/doc --directory --no-open'"
 alias tarp="cargo tarpaulin --ignore-tests"
 alias wipe="rm -rfd ${@}"
 alias tgo="tinygo"
+alias ochat="ollama run openchat"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
@@ -220,6 +227,21 @@ autoload -Uz compinit && compinit
 
 # pkgx shellcode
 source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
