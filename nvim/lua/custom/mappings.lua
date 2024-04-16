@@ -10,6 +10,8 @@ M.disabled = {
     ["<A-v>"] = "",     -- toggle vertical term
     ["<leader>h"] = "", -- new horizontal term
     ["<leader>v"] = "", -- new vertical term
+    ["<leader>fb"] = "", -- telescope buffers
+    ["<leader>fw"] = "", -- telescope live_grep
   },
 
   -- visual mode
@@ -325,12 +327,27 @@ M.codeium = {
   },
 }
 
-M.findr = {
+M.fzf = {
   plugin = true,
   n = {
     ["<leader>fd"] = {
-      "<cmd> Findr <CR>",
-      "Open Findr"
+      "<cmd> FzfLua files <CR>",
+      "Open Fzf Files"
+    },
+    
+    ["<leader>fg"] = {
+      "<cmd> FzfLua grep_visual <CR>",
+      "Open Fzf Grep"
+    },
+
+    ["<leader>fb"] = {
+      "<cmd> FzfLua buffers <CR>",
+      "Open Fzf Buffers"
+    },
+
+    ["<leader>fw"] = {
+      "<cmd> FzfLua live_grep <CR>",
+      "Open Fzf Live Grep"
     },
   },
 }
@@ -357,6 +374,39 @@ M.dapui = {
       function()
         require("dapui").close()
       end,
+    },
+  },
+}
+
+M.ollama = {
+  plugin = true,
+  n = {
+    ["<leader>oo"] = {
+      function()
+        require('ollama').prompt()
+      end,
+      "ollama prompt",
+    },
+    ["<leader>oG"] = {
+      function()
+        require('ollama').prompt('Generate_Code')
+      end,
+      "ollama Generate Code",
+    },
+  },
+
+  v = {
+    ["<leader>oo"] = {
+      function()
+        require('ollama').prompt()
+      end,
+      "ollama prompt",
+    },
+    ["<leader>oG"] = {
+      function()
+        require('ollama').prompt('Generate_Code')
+      end,
+      "ollama Generate Code",
     },
   },
 }

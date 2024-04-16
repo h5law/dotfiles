@@ -13,13 +13,70 @@ local plugins = {
     "nvim-tree/nvim-web-devicons",
   },
   {
-    "nvimtools/none-ls.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "nvim-lspconfig" },
     opts = function()
       return require("custom.configs.null-ls")
     end,
-    init = function(_, opts)
+    init = function(opts)
       require("null-ls").setup(opts)
+    end,
+  },
+  {
+  'stevearc/dressing.nvim',
+    opts = {},
+    init = function()
+       require('dressing').setup({
+        input = {
+          win_options = {
+            winhighlight = 'NormalFloat:DiagnosticError'
+          }
+        },
+        select = {
+          get_config = function()
+           return {
+             backend = 'fzf',
+             nui = {
+              relative = 'cursor',
+              max_width = 40,
+            }
+          }
+          end
+        }
+      })
+    end
+  },
+  {
+    "ibhagwan/fzf-lua",
+    requires = {
+      'nvim-tree/nvim-web-devicons'
+    },
+    init = function()
+      require("core.utils").load_mappings("fzf")
+    end,
+  },
+  {
+    "David-Kunz/gen.nvim",
+    opts = {
+      model = "openchat:latest",
+      display_mode = "split",
+      show_prompt = true,
+      show_model = true,
+      no_auto_close = true,
+    },
+  },
+  {
+    "nomnivore/ollama.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
+    opts = function()
+      return require("custom.configs.ollama")
+    end,
+    config = function(opts, _)
+      require("ollama").setup(opts)
+      require("core.utils").load_mappings("ollama")
     end,
   },
   {
@@ -30,17 +87,11 @@ local plugins = {
     end,
   },
   {
-    "conweller/findr.vim",
-    init = function()
-      require("core.utils").load_mappings("findr")
-    end,
-  },
-  {
     "folke/zen-mode.nvim",
     dependencies = {
       "folke/twilight.nvim",
     },
-    opts = function(_, opts)
+    opts = function()
       return require("custom.configs.zenmode")
     end,
     init = function()

@@ -12,7 +12,6 @@ local sources = {
   null_ls.builtins.diagnostics.cppcheck,
   null_ls.builtins.diagnostics.golangci_lint,
   null_ls.builtins.diagnostics.markdownlint,
-  null_ls.builtins.diagnostics.mypy,
   null_ls.builtins.diagnostics.proselint,
   null_ls.builtins.diagnostics.protolint,
   null_ls.builtins.diagnostics.revive,
@@ -38,6 +37,7 @@ local sources = {
     },
   }),
   null_ls.builtins.formatting.mdformat,
+  null_ls.builtins.formatting.markdown_toc,
   null_ls.builtins.formatting.prettierd,
   null_ls.builtins.formatting.protolint,
   -- null_ls.builtins.formatting.remark, -- md dependds on remark-cli
@@ -76,6 +76,16 @@ end
 local formatgroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local actiongroup = vim.api.nvim_create_augroup("LspCodeAction", {})
 
+local function ignore_files(names)
+  for name in pairs(names) do
+    if vim.fn.expand("%:t") == name then
+      return {}
+    end
+  end
+end
+
+ignore_files({"gen.nvim"})
+
 local opts = {
   debug = false,
   sources = sources,
@@ -89,6 +99,7 @@ local opts = {
         buffer = bufnr,
         callback = function()
           vim.lsp.buf.format({
+            debug = false,
             async = true,
             filter = function()
               return client.name == "null-ls"
@@ -117,7 +128,7 @@ local opts = {
         end
       end
     end
-  end
+  end,
 }
 
 return opts

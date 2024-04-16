@@ -3,7 +3,7 @@
 local M = {}
 
 M.ui = {
-    theme = 'chadracula',
+    theme = 'doomchad',
     nvdash = { load_on_startup = true },
     statusline = {
         theme = "minimal",
