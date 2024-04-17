@@ -56,16 +56,6 @@ local plugins = {
     end,
   },
   {
-    "David-Kunz/gen.nvim",
-    opts = {
-      model = "openchat:latest",
-      display_mode = "split",
-      show_prompt = true,
-      show_model = true,
-      no_auto_close = true,
-    },
-  },
-  {
     "nomnivore/ollama.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -74,8 +64,10 @@ local plugins = {
     opts = function()
       return require("custom.configs.ollama")
     end,
-    config = function(opts, _)
+    config = function(_, opts)
       require("ollama").setup(opts)
+    end,
+    init = function()
       require("core.utils").load_mappings("ollama")
     end,
   },
@@ -110,12 +102,6 @@ local plugins = {
       require("core.utils").load_mappings("dapui")
     end
   },
-  -- {
-  --   "github/copilot.vim",
-  --   config = function()
-  --     require("core.utils").load_mappings("copilot")
-  --   end,
-  -- },
   {
     "williamboman/mason.nvim",
     opts = {

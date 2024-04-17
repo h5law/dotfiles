@@ -1,4 +1,4 @@
--- Enable filetype plugins and indenting
+-- :Enable filetype plugins and indenting
 vim.cmd 'filetype plugin indent on'
 
 -- Enable syntax highlighting
@@ -15,7 +15,8 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.cursorline = true
 
 -- Spelling
-vim.opt.spelllang = "en_gb"
+vim.opt.spell = true
+vim.opt.spelllang = "en_gb,en_us,es_es"
 
 -- Highlight columns
 vim.opt.colorcolumn = "80,90,120"

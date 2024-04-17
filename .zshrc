@@ -191,6 +191,7 @@ alias nim="nvim"
 alias ncim="nvim"
 alias nvmi="nvim"
 alias got="git"
+alias exir="exit"
 
 # fzf aliases
 alias fim="nvim \$(fzf)"
@@ -198,6 +199,7 @@ alias sd="cd \$(find * -type d | fzf)"
 
 # command aliases
 alias g="git"
+alias n="nvim"
 alias git_aliases="git config --get-regexp alias"
 alias cat="bat -pp"
 alias gt="gpg-tui"

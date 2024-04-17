@@ -12,6 +12,7 @@ M.disabled = {
     ["<leader>v"] = "", -- new vertical term
     ["<leader>fb"] = "", -- telescope buffers
     ["<leader>fw"] = "", -- telescope live_grep
+    ["<leader>gr"] = "", -- LSP get references
   },
 
   -- visual mode
@@ -349,6 +350,16 @@ M.fzf = {
       "<cmd> FzfLua live_grep <CR>",
       "Open Fzf Live Grep"
     },
+
+    ["<leader>gr"] = {
+      "<cmd> FzfLua lsp_references <CR>",
+      "Get All References of word under cursor"
+    },
+
+    ["<leader>fs"] = {
+      "<cmd> FzfLua lsp_document_symbols <CR>",
+      "Get All Symbols of current file"
+    },
   },
 }
 
@@ -381,13 +392,13 @@ M.dapui = {
 M.ollama = {
   plugin = true,
   n = {
-    ["<leader>oo"] = {
+    ["<leader>ps"] = {
       function()
         require('ollama').prompt()
       end,
       "ollama prompt",
     },
-    ["<leader>oG"] = {
+    ["<leader>gc"] = {
       function()
         require('ollama').prompt('Generate_Code')
       end,
@@ -396,13 +407,13 @@ M.ollama = {
   },
 
   v = {
-    ["<leader>oo"] = {
+    ["<leader>ps"] = {
       function()
         require('ollama').prompt()
       end,
       "ollama prompt",
     },
-    ["<leader>oG"] = {
+    ["<leader>gc"] = {
       function()
         require('ollama').prompt('Generate_Code')
       end,
