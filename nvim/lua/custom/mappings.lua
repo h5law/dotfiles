@@ -4,12 +4,12 @@ local M = {}
 M.disabled = {
   -- normal mode
   n = {
-    ["<leader>n"] = "", -- toggle line number
-    ["<A-i>"] = "",     -- toggle floating term
-    ["<A-h>"] = "",     -- toggle horizontal term
-    ["<A-v>"] = "",     -- toggle vertical term
-    ["<leader>h"] = "", -- new horizontal term
-    ["<leader>v"] = "", -- new vertical term
+    ["<leader>n"] = "",  -- toggle line number
+    ["<A-i>"] = "",      -- toggle floating term
+    ["<A-h>"] = "",      -- toggle horizontal term
+    ["<A-v>"] = "",      -- toggle vertical term
+    ["<leader>h"] = "",  -- new horizontal term
+    ["<leader>v"] = "",  -- new vertical term
     ["<leader>fb"] = "", -- telescope buffers
     ["<leader>fw"] = "", -- telescope live_grep
     ["<leader>gr"] = "", -- LSP get references
@@ -127,11 +127,6 @@ M.gonvim = {
       "Test current go package"
     },
 
-    ["<leader>po"] = {
-      "<cmd> GoPkgOutline <CR>",
-      "Show outline of current go package"
-    },
-
     ["<leader>gmt"] = {
       "<cmd> GoModTidy <CR>",
       "Run go mod tidy and restart gopls"
@@ -140,11 +135,6 @@ M.gonvim = {
     ["<leader>gst"] = {
       "<cmd> GoAlt! <CR>",
       "Switch to (or create) the go test file for the current file"
-    },
-
-    ["<leader>ggr"] = {
-      "<cmd> GoGenReturn <CR>",
-      "Generate return values for the current function"
     },
 
     ["<leader>gsj"] = {
@@ -335,7 +325,7 @@ M.fzf = {
       "<cmd> FzfLua files <CR>",
       "Open Fzf Files"
     },
-    
+
     ["<leader>fg"] = {
       "<cmd> FzfLua grep_visual <CR>",
       "Open Fzf Grep"
