@@ -170,6 +170,15 @@ function venv() {
     conda activate $1
 }
 
+function backup() {
+    declare -a files=(
+        "${HOME}/.zshrc"
+        "${HOME}/.zshenv"
+        "${HOME}/.config/nvim"
+    )
+    eval ${HOME}/.local/bin/backup.sh ${files[@]} ${HOME}/personal/dotfiles
+}
+
 ###########
 # ALIASES #
 ###########

@@ -1,10 +1,10 @@
 local opts = {
-  model = "codeqwen:latest",
+  model = "llama3:latest",
   prompts = {
     Brief_Context =
-    "I am a software engineer with experience in go, python and rust - looking to solve problems and build intuition around fundamental computer science comcepts.\n\n$input",
+    "I am a software engineer working in go, typescript, python and rust. I am looking to solve problems and build intuition around fundamental computer science comcepts.\n\n$input",
     input_label = "|»> ",
-    model = "openchat:latest",
+    model = "llama3:latest",
     action = "display",
   },
 }

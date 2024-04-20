@@ -83,7 +83,7 @@ local function ignore_files(names)
   end
 end
 
-ignore_files({"gen.nvim"})
+ignore_files({ "gen.nvim" })
 
 local opts = {
   debug = false,
