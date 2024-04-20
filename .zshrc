@@ -223,6 +223,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.atuin-init.zsh ] && source ~/.atuin-init.zsh
 [ -f ~/.atuin-completions.zsh ] && source ~/.atuin-completions.zsh
 [ -f ~/.hugo-completions.zsh ] && source ~/.hugo-completions.zsh
+
 # poetry
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
