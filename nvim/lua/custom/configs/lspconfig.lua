@@ -71,12 +71,23 @@ lspconfig.solang.setup {
 lspconfig.zls = {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = {"zig"};
-  root_dir = util.root_pattern("build.zig", ".git");
+  filetypes = { "zig" },
+  root_dir = util.root_pattern("build.zig", ".git"),
   docs = {
-    description = [[ ]];
+    description = [[ ]],
     default_config = {
-      root_dir = [[root_pattern("build.zig", ".git")]];
-    };
-  };
+      root_dir = [[root_pattern("build.zig", ".git")]],
+    },
+  },
+}
+
+lspconfig.tilt_ls.setup {}
+
+lspconfig.postgres_lsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { 'sql' },
+  name = 'postgres_lsp',
+  cmd = { 'postgres_lsp' },
+  single_file_support = true,
 }

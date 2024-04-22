@@ -4,15 +4,12 @@ local M = {}
 M.disabled = {
   -- normal mode
   n = {
-    ["<leader>n"] = "",  -- toggle line number
-    ["<A-i>"] = "",      -- toggle floating term
-    ["<A-h>"] = "",      -- toggle horizontal term
-    ["<A-v>"] = "",      -- toggle vertical term
-    ["<leader>h"] = "",  -- new horizontal term
-    ["<leader>v"] = "",  -- new vertical term
-    ["<leader>fb"] = "", -- telescope buffers
-    ["<leader>fw"] = "", -- telescope live_grep
-    ["<leader>gr"] = "", -- LSP get references
+    ["<leader>n"] = "", -- toggle line number
+    ["<A-i>"] = "",     -- toggle floating term
+    ["<A-h>"] = "",     -- toggle horizontal term
+    ["<A-v>"] = "",     -- toggle vertical term
+    ["<leader>h"] = "", -- new horizontal term
+    ["<leader>v"] = "", -- new vertical term
   },
 
   -- visual mode
@@ -214,56 +211,7 @@ M.peek = {
     ["<leader>mpc"] = {
       "<cmd> PeekClose <CR>",
       "Close peek"
-    },
-  },
-}
 
-M.copilot = {
-  plugin = true,
-  i = {
-    -- Option + l
-    ["¬"] = {
-      function()
-        return vim.fn["copilot#Accept"]()
-      end,
-      "Accept completion (Option + l)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option + Shift + ;
-    ["<Ú>"] = {
-      function()
-        return vim.fn["copilot#Complete"]()
-      end,
-      "Manually trigger suggestions (Option + Shift + ;)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option+;
-    ["<…>"] = {
-      function()
-        return vim.fn["copilot#CycleCompletions"](-1)
-      end,
-      "Previous suggestion (Option + ,)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option + ,
-    ["<≤>"] = {
-      function()
-        return vim.fn["copilot#CycleCompletions"](1)
-      end,
-      "Next suggestion (Option + ,)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option+x
-    ["<≈>"] = {
-      function()
-        return vim.fn["copilot#Clear"]()
-      end,
-      "Clear current suggestion (Option + x)",
-      opts = { expr = true, silent = true },
     },
   },
 }
@@ -321,29 +269,9 @@ M.codeium = {
 M.fzf = {
   plugin = true,
   n = {
-    ["<leader>fd"] = {
-      "<cmd> FzfLua files <CR>",
-      "Open Fzf Files"
-    },
-
     ["<leader>fg"] = {
       "<cmd> FzfLua grep_visual <CR>",
       "Open Fzf Grep"
-    },
-
-    ["<leader>fb"] = {
-      "<cmd> FzfLua buffers <CR>",
-      "Open Fzf Buffers"
-    },
-
-    ["<leader>fw"] = {
-      "<cmd> FzfLua live_grep <CR>",
-      "Open Fzf Live Grep"
-    },
-
-    ["<leader>gr"] = {
-      "<cmd> FzfLua lsp_references <CR>",
-      "Get All References of word under cursor"
     },
 
     ["<leader>fs"] = {
@@ -408,6 +336,26 @@ M.ollama = {
         require('ollama').prompt('Generate_Code')
       end,
       "ollama Generate Code",
+    },
+  },
+}
+
+M.findr = {
+  plugin = true,
+  n = {
+    ["<leader>fd"] = {
+      "<cmd> Findr <CR>",
+      "Open Findr"
+    },
+  },
+}
+
+M.trouble = {
+  plugin = true,
+  n = {
+    ["<leader>ts"] = {
+      "<cmd> Trouble <CR>",
+      "Toggle Trouble"
     },
   },
 }

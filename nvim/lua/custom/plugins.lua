@@ -23,10 +23,10 @@ local plugins = {
     end,
   },
   {
-  'stevearc/dressing.nvim',
+    'stevearc/dressing.nvim',
     opts = {},
     init = function()
-       require('dressing').setup({
+      require('dressing').setup({
         input = {
           win_options = {
             winhighlight = 'NormalFloat:DiagnosticError'
@@ -34,17 +34,30 @@ local plugins = {
         },
         select = {
           get_config = function()
-           return {
-             backend = 'fzf',
-             nui = {
-              relative = 'cursor',
-              max_width = 40,
+            return {
+              backend = 'fzf',
+              nui = {
+                relative = 'cursor',
+                max_width = 40,
+              }
             }
-          }
           end
         }
       })
     end
+  },
+  {
+    "conweller/findr.vim",
+    init = function()
+      require("core.utils").load_mappings("findr")
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    init = function()
+      require("core.utils").load_mappings("trouble")
+    end,
   },
   {
     "ibhagwan/fzf-lua",
@@ -112,22 +125,24 @@ local plugins = {
         "goimports",
         "goimports-reviser",
         "golines",
+        "revive",
         "zls",
         "protolint",
         "pyright",
-        "mypy",
-        "blackd",
+        "pylint",
+        "isort",
+        "black",
+        "clang-format",
+        "cpplint",
         "ruff",
         "solang",
-        "eslint_d",
+        "solhint",
         "markdown-toc",
         "mdformat",
         "prettierd",
         "lua-language-server",
-        "alex",
         "markdownlint",
         "buf",
-        "proselint",
         "deno",
       },
     },

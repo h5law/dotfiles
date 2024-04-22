@@ -10,6 +10,9 @@ vim.cmd [[set guicursor=a:blinkon1]]
 -- Set shell
 vim.opt.shell = "/bin/zsh"
 
+-- Swap files
+vim.opt.swapfile = false
+
 -- Encoding
 vim.opt.fileencoding = "utf-8"
 vim.opt.cursorline = true
@@ -49,3 +52,11 @@ vim.g.codeium_disable_bindings = 1
 
 -- TreeSitter Context
 vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true, sp = "Grey" })
+
+-- AutoCommand to detect Tiltfiles
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = { "Tiltfile" },
+  callback = function()
+    vim.bo.filetype = "tiltfile"
+  end
+})
