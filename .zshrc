@@ -54,9 +54,11 @@ else
 fi
 
 # Export GPG_KEYs
-export GPG_HRRYSLW="B3207D975183E180A43D8726284D5CD4CBC3D5E4"
-export GPG_H10LAW="F80B0DE79DC5204F561A0DE35A64130002E4B553"
-export GPG_DEV="5E13EF45407F11ED9D86A79F51F7D17EC2E1BBE3"
+export GPG_HRRYSLW="B3207D975183E180A43D8726284D5CD4CBC3D5E4" # hrryslw@pm.me
+export GPG_H10LAW="F80B0DE79DC5204F561A0DE35A64130002E4B553"  # h10law@pm.me
+export GPG_HARRY="C95A052EB250F3AD8624E9916231F9B2A450EA3A"   # harry@h5law.com
+export GPG_DEV="5E13EF45407F11ED9D86A79F51F7D17EC2E1BBE3"     # dev@h5law.com
+export GPG_E2E="A840602393055DD3B52B91B2330B8F4221F57F6B"     # e2e@encro.chat
 export GPG_SWOLE="1D5A10AE11756A935EEA0278DF3FFDF4F6DCB06C"
 
 # enable GPG signing
@@ -166,8 +168,8 @@ function gcb() {
 }
 
 function venv() {
-    conda create -n $1 python=${2:-3.12}
-    conda activate $1
+    python3 -m venv ./venv/
+    source ./venv/bin/activate
 }
 
 function backup() {
@@ -185,6 +187,8 @@ function backup() {
 
 # ls 
 alias tree="tree -ACFQahv --dirsfirst -I '.git,node_modules'"
+alias fd="fd -c always -H --ignore --ignore-vcs --exclude node_modules --exclude Library --exclude .bun --exclude .cargo --exclude go/ --exclude .pkgx/ --exclude .rustup/"
+alias bfs="bfs -color -hidden"
 
 # desired flag aliases
 alias cp="cp -v"
@@ -203,12 +207,14 @@ alias got="git"
 alias exir="exit"
 
 # fzf aliases
-alias fim="nvim \$(fzf)"
-alias sd="cd \$(find * -type d | fzf)"
+alias fim="nvim \$(fd -c never | fzf -x)"
+alias sd="cd \$(fd -c never -t d | fzf -x)"
+alias find="fd -c never | fzf -x"
 
 # command aliases
 alias g="git"
 alias n="nvim"
+alias m="nvim"
 alias git_aliases="git config --get-regexp alias"
 alias cat="bat -pp"
 alias gt="gpg-tui"
@@ -218,7 +224,8 @@ alias rustdoc="RUSTDOCFLAGS='--html-in-header ./header-file.html' cargo watch -s
 alias tarp="cargo tarpaulin --ignore-tests"
 alias wipe="rm -rfd ${@}"
 alias tgo="tinygo"
-alias ochat="ollama run openchat"
+alias oweb="docker run -d -p 3030:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main"
+alias backup="./Users/harry/.local/bin/backup.sh"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
@@ -232,33 +239,17 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.atuin-init.zsh ] && source ~/.atuin-init.zsh
 [ -f ~/.atuin-completions.zsh ] && source ~/.atuin-completions.zsh
 [ -f ~/.hugo-completions.zsh ] && source ~/.hugo-completions.zsh
+[ -f ~/.kubectl.zsh ] && source ~/.kubectl.zsh
+[ -f ~/.dlv-completions.zsh ] && source ~/.dlv-completions.zsh
 
-# poetry
-fpath+=~/.zfunc
-autoload -Uz compinit && compinit
+# zoxide integration
+eval "$(zoxide init --cmd "cd" zsh)"
+
+# asdf
+source /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # pkgx shellcode
 source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
