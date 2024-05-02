@@ -14,12 +14,29 @@ local plugins = {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-lspconfig" },
     opts = function()
       return require("custom.configs.null-ls")
     end,
     init = function(opts)
       require("null-ls").setup(opts)
+    end,
+  },
+  {
+    "mistricky/codesnap.nvim",
+    build = "make build_generator",
+    opts = {
+      title = "code snippet",
+      save_path = "~/Captures/CodeSnaps/",
+      has_line_number = true,
+      watermark = "",
+      code_font_family = "JetBrainsMono Nerd Font",
+      bg_theme = "bamboo",
+    },
+    config = function(_, opts)
+      require("codesnap").setup(opts)
+      require("core.utils").load_mappings("codesnap")
     end,
   },
   {
@@ -60,8 +77,17 @@ local plugins = {
     end,
   },
   {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    init = function()
+      require("harpoon").setup()
+      require("core.utils").load_mappings("harpoon")
+    end,
+  },
+  {
     "ibhagwan/fzf-lua",
-    requires = {
+    dependencies = {
       'nvim-tree/nvim-web-devicons'
     },
     init = function()
@@ -111,8 +137,19 @@ local plugins = {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     init = function()
-      require("dapui").setup()
       require("core.utils").load_mappings("dapui")
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
     end
   },
   {
@@ -126,12 +163,16 @@ local plugins = {
         "goimports-reviser",
         "golines",
         "revive",
+        "delve",
         "zls",
         "protolint",
         "pyright",
         "pylint",
         "isort",
         "black",
+        "prettierd",
+        "clangd",
+        "codelldb",
         "clang-format",
         "cpplint",
         "ruff",
@@ -139,8 +180,8 @@ local plugins = {
         "solhint",
         "markdown-toc",
         "mdformat",
-        "prettierd",
         "lua-language-server",
+        "shellcheck",
         "markdownlint",
         "buf",
         "deno",
@@ -168,6 +209,17 @@ local plugins = {
     build = ':lua require("go.install").update_all_sync()',
   },
   {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      handlers = {},
+    },
+  },
+  {
     "mfussenegger/nvim-dap",
     init = function()
       require("core.utils").load_mappings("dap")
@@ -179,30 +231,19 @@ local plugins = {
     dependencies = "mfussenegger/nvim-dap",
     config = function(_, opts)
       require("dap-go").setup(opts)
-      require("core.utils").load_mappings("dap_go")
     end,
   },
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --   build = "cd app && yarn install",
-  --   init = function()
-  --     vim.g.mkdp_auto_start = 1
-  --     vim.g.mkdp_auto_close = 0
-  --     vim.g.mkdp_filetypes = { "markdown" }
-  --     vim.g.mkdp_browser = "/Applications/Arc.app/Contents/MacOS/Arc"
-  --     require("core.utils").load_mappings("mkdp")
-  --   end,
-  -- },
   {
-    "toppair/peek.nvim",
-    event = { "VeryLazy" },
-    build = "deno task --quiet build:fast",
-    config = function()
-      require("peek").setup()
-      vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
-      vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
-      require("core.utils").load_mappings("peek")
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+    init = function()
+      vim.g.mkdp_auto_start = 0
+      vim.g.mkdp_auto_close = 1
+      vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_browser = "/Applications/Arc.app/Contents/MacOS/Arc"
+      require("core.utils").load_mappings("mkdp")
     end,
   },
   {
@@ -241,9 +282,10 @@ local plugins = {
 
         -- system level
         "c",
-        "zig",
+        "cpp",
         "rust",
         "go",
+        "zig",
 
         -- DSL
         "solidity",

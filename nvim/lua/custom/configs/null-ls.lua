@@ -1,17 +1,13 @@
 local null_ls = require("null-ls")
 
 local sources = {
-  null_ls.builtins.completion.spell,
-
   null_ls.builtins.diagnostics.actionlint,
   null_ls.builtins.diagnostics.buf,
   null_ls.builtins.diagnostics.checkmake,
   null_ls.builtins.diagnostics.cmake_lint,
-  null_ls.builtins.diagnostics.clang_check,
   null_ls.builtins.diagnostics.codespell,
   null_ls.builtins.diagnostics.cpplint,
   null_ls.builtins.diagnostics.eslint,
-  null_ls.builtins.diagnostics.golangci_lint,
   null_ls.builtins.diagnostics.protolint,
   null_ls.builtins.diagnostics.revive,
   null_ls.builtins.diagnostics.ruff,
@@ -22,7 +18,7 @@ local sources = {
   null_ls.builtins.diagnostics.yamllint,
   null_ls.builtins.diagnostics.zsh,
 
-  null_ls.builtins.formatting.blackd,
+  null_ls.builtins.formatting.black,
   null_ls.builtins.formatting.buf,
   null_ls.builtins.formatting.cbfmt,
   null_ls.builtins.formatting.clang_format,
@@ -41,12 +37,10 @@ local sources = {
   null_ls.builtins.formatting.lua_format,
   null_ls.builtins.formatting.markdown_toc,
   null_ls.builtins.formatting.mdformat,
+  null_ls.builtins.formatting.prettierd,
   null_ls.builtins.formatting.protolint,
   null_ls.builtins.formatting.ruff,
   null_ls.builtins.formatting.shfmt,
-
-  null_ls.builtins.code_actions.eslint_d,
-  null_ls.builtins.code_actions.gitsigns,
 }
 
 -- local gotest = require("go.null_ls").gotest()

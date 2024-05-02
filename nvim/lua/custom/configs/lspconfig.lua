@@ -9,16 +9,6 @@ require("neodev").setup({
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 
-lspconfig.lua_ls.setup({
-  settings = {
-    Lua = {
-      completion = {
-        callSnippet = "Replace"
-      }
-    }
-  }
-})
-
 lspconfig.rust_analyzer.setup({
   on_attach = on_attach,
   capabilities = capabilities,
@@ -48,6 +38,14 @@ lspconfig.gopls.setup({
   },
 })
 
+lspconfig.clangd.setup({
+  on_attach = function (client, bufnr)
+    client.server_capabilities.signatureHelpProvider = false
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+})
+
 lspconfig.pyright.setup({
   on_attach = on_attach,
   capabilities = capabilities,
@@ -59,7 +57,11 @@ lspconfig.tsserver.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-  root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")
+  root_dir = util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git"),
+  on_init = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentFormattingRangeProvider = false
+  end,
 })
 
 lspconfig.solang.setup {
@@ -79,15 +81,4 @@ lspconfig.zls = {
       root_dir = [[root_pattern("build.zig", ".git")]],
     },
   },
-}
-
-lspconfig.tilt_ls.setup {}
-
-lspconfig.postgres_lsp.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = { 'sql' },
-  name = 'postgres_lsp',
-  cmd = { 'postgres_lsp' },
-  single_file_support = true,
 }

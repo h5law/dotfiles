@@ -46,6 +46,7 @@ M.common = {
     ["_"] = { "<CMD>vertical resize -5<CR>", "Decrease window width" },
     ["="] = { "<CMD>horizontal resize +5<CR>", "Increase window height" },
     ["-"] = { "<CMD>horizontal resize -5<CR>", "Decrease window height" },
+    ["<leader>cx"] = { "<CMD>close<CR>", "Close current window" },
   },
 
   -- console mode
@@ -155,15 +156,6 @@ M.dap = {
       "Add breakpoint at line"
     },
 
-    ["<leader>dus"] = {
-      function()
-        local widgets = require("dap.ui.widgets");
-        local sidebar = widgets.sidebar(widgets.scopes);
-        sidebar.open();
-      end,
-      "Open debugging sidebar"
-    },
-
     ["<leader>dso"] = {
       "<cmd> DapStepOver <CR>",
       "Debug step over"
@@ -171,21 +163,19 @@ M.dap = {
   },
 }
 
-M.dap_go = {
+M.dapui = {
   plugin = true,
   n = {
-    ["<leader>dgt"] = {
+    ["<leader>duo"] = {
       function()
-        require("dap-go").debug_test()
+        require("dapui").open()
       end,
-      "Debug go test"
     },
 
-    ["<leader>dgl"] = {
+    ["<leader>duc"] = {
       function()
-        require("dap-go").debug_last()
+        require("dapui").close()
       end,
-      "Debug last go test"
     },
   },
 }
@@ -194,24 +184,8 @@ M.mkdp = {
   plugin = true,
   n = {
     ["<leader>mp"] = {
-      "<cmd> MarkdownPreview <CR>",
-      "Toggle Markdown Preview"
-    },
-  },
-}
-
-M.peek = {
-  plugin = true,
-  n = {
-    ["<leader>mpo"] = {
-      "<cmd> PeekOpen <CR>",
-      "Open peek"
-    },
-
-    ["<leader>mpc"] = {
-      "<cmd> PeekClose <CR>",
-      "Close peek"
-
+      "<cmd> MarkdownPreviewToggle <CR>",
+      "Toggle markdown preview"
     },
   },
 }
@@ -225,42 +199,6 @@ M.codeium = {
         return vim.fn["codeium#Accept"]()
       end,
       "Accept completion (Option + l)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option + Shift + ;
-    ["<Ú>"] = {
-      function()
-        return vim.fn["codeium#Complete"]()
-      end,
-      "Manually trigger suggestions (Option + Shift + ;)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option+;
-    ["<…>"] = {
-      function()
-        return vim.fn["codeium#CycleCompletions"](1)
-      end,
-      "Next suggestion (Option + ;)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option + ,
-    ["<≤>"] = {
-      function()
-        return vim.fn["codeium#CycleCompletions"](-1)
-      end,
-      "Previous suggestion (Option + ,)",
-      opts = { expr = true, silent = true },
-    },
-
-    -- Option+x
-    ["<≈>"] = {
-      function()
-        return vim.fn["codeium#Clear"]()
-      end,
-      "Clear current suggestion (Option + x)",
       opts = { expr = true, silent = true },
     },
   },
@@ -278,6 +216,11 @@ M.fzf = {
       "<cmd> FzfLua lsp_document_symbols <CR>",
       "Get All Symbols of current file"
     },
+
+    ["<leader>gs"] = {
+      "<cmd> FzfLua git_status <CR>",
+      "Show and interactive git status window side by side with diff"
+    },
   },
 }
 
@@ -291,22 +234,6 @@ M.zenmode = {
   },
 }
 
-M.dapui = {
-  plugin = true,
-  n = {
-    ["<leader>duo"] = {
-      function()
-        require("dapui").open()
-      end,
-    },
-    ["<leader>duc"] = {
-      function()
-        require("dapui").close()
-      end,
-    },
-  },
-}
-
 M.ollama = {
   plugin = true,
   n = {
@@ -316,12 +243,6 @@ M.ollama = {
       end,
       "ollama prompt",
     },
-    ["<leader>gc"] = {
-      function()
-        require('ollama').prompt('Generate_Code')
-      end,
-      "ollama Generate Code",
-    },
   },
 
   v = {
@@ -330,12 +251,6 @@ M.ollama = {
         require('ollama').prompt()
       end,
       "ollama prompt",
-    },
-    ["<leader>gc"] = {
-      function()
-        require('ollama').prompt('Generate_Code')
-      end,
-      "ollama Generate Code",
     },
   },
 }
@@ -358,6 +273,57 @@ M.trouble = {
       "Toggle Trouble"
     },
   },
+}
+
+M.harpoon = {
+  plugin = true,
+  n = {
+    ["<leader>a"] = {
+      function()
+        require("harpoon"):list():add()
+      end,
+      "Add file to harpoon"
+    },
+
+    -- Option + f
+    ["ƒ"] = {
+      function()
+        require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
+      end,
+      "Toggle harpoon menu (Option + f)",
+    },
+
+    -- Option + Shift + P
+    ["∏"] = {
+      function()
+        require("harpoon"):list():prev()
+      end,
+      "Navigate previous harpoon list item (Option + Shift + P)",
+    },
+
+    -- Option + Shift + N
+    ["ˆ"] = {
+      function()
+        require("harpoon"):list():next()
+      end,
+      "Navigate next harpoon list item (Option + Shift + N)",
+    },
+  },
+}
+
+M.codesnap = {
+  plugin = true,
+  v = {
+    ["<leader>cb"] = {
+      "<cmd> CodeSnap <CR>",
+      "Copy selected code snapshot into clipboard"
+    },
+
+    ["<leader>cs"] = {
+      "<cmd> CodeSnapSave <CR>",
+      "Save selected code snapshot in ~/Pictures/CodeSnippets/"
+    },
+  }
 }
 
 return M
