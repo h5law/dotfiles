@@ -9,6 +9,12 @@
 [commit]
     gpgSign = true
 
+[includeIf "gitdir:~/workspace/polymer/"]
+    path = .gitconfig_work
+
+[includeIf "gitdir:~/tests/"]
+    path = .gitconfig_tests
+
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
@@ -49,7 +55,7 @@
     # Shows commit info in its tree form
 	tree  = log --pretty=better-oneline --all --graph
     # Show commit into in its ls form
-	ls    = log --pretty=better-oneline
+	ls    = log --pretty=better-oneline --show-signature
     # Shows commit info in its ll form
 	ll    = log --pretty=better-oneline --numstat
 	details = "!f() { git ll "$1"^.."$1"; }; f"
@@ -123,3 +129,5 @@
     file-style = bold yellow ul
     file-decoration-style = none
     hunk-header-decoration-style = yellow box
+[gpg]
+	program = /opt/homebrew/bin/gpg

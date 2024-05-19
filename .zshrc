@@ -59,6 +59,7 @@ export GPG_H10LAW="F80B0DE79DC5204F561A0DE35A64130002E4B553"  # h10law@pm.me
 export GPG_HARRY="C95A052EB250F3AD8624E9916231F9B2A450EA3A"   # harry@h5law.com
 export GPG_DEV="5E13EF45407F11ED9D86A79F51F7D17EC2E1BBE3"     # dev@h5law.com
 export GPG_E2E="A840602393055DD3B52B91B2330B8F4221F57F6B"     # e2e@encro.chat
+export GPG_POLYMER="9C90BCC808A7068F37C0BCED468E8D612754F96D" # harry@polymerlabs.org
 export GPG_SWOLE="1D5A10AE11756A935EEA0278DF3FFDF4F6DCB06C"
 
 # enable GPG signing
@@ -77,6 +78,9 @@ export MODULAR_HOME="/Users/harry/.modular"
 
 # brew
 export HOMEBREW_NO_ENV_HINTS=1
+
+# ollama
+export OPENAI_API_KEY="ollama"
 
 #############
 # FUNCTIONS #
@@ -131,6 +135,11 @@ function sign() {
     local filename_without_extension="${filename%.*}"
 
     gpg -ao "${filename_without_extension}.sig" -u "$2" -s "$filename"
+}
+
+function bsd3() {
+    echo -e "\033[1mCopying BSD-3 Clause License File\033[0m: ${dir}"
+    cp "${HOME}/.bsd3" ./LICENSE
 }
 
 function mkcd() {
@@ -207,9 +216,9 @@ alias got="git"
 alias exir="exit"
 
 # fzf aliases
-alias fim="nvim \$(fd -c never | fzf -x)"
-alias sd="cd \$(fd -c never -t d | fzf -x)"
-alias find="fd -c never | fzf -x"
+alias sd="cd \$(fd -c never -t d | fzf --preview 'tree -C {} | head -200')"
+alias find="fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+alias fim="nvim \$(fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')"
 
 # command aliases
 alias g="git"
@@ -224,8 +233,9 @@ alias rustdoc="RUSTDOCFLAGS='--html-in-header ./header-file.html' cargo watch -s
 alias tarp="cargo tarpaulin --ignore-tests"
 alias wipe="rm -rfd ${@}"
 alias tgo="tinygo"
-alias oweb="docker run -d -p 3030:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main"
+alias oweb="docker run -d -p 4000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main"
 alias backup="./Users/harry/.local/bin/backup.sh"
+alias tdtu="tilt down && tilt up"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
@@ -241,6 +251,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.hugo-completions.zsh ] && source ~/.hugo-completions.zsh
 [ -f ~/.kubectl.zsh ] && source ~/.kubectl.zsh
 [ -f ~/.dlv-completions.zsh ] && source ~/.dlv-completions.zsh
+[ -f ~/.colima-completion.zsh ] && source ~/.colima-completion.zsh
 
 # zoxide integration
 eval "$(zoxide init --cmd "cd" zsh)"

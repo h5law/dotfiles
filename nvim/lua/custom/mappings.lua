@@ -190,20 +190,6 @@ M.mkdp = {
   },
 }
 
-M.codeium = {
-  plugin = true,
-  i = {
-    -- Option + l
-    ["¬"] = {
-      function()
-        return vim.fn["codeium#Accept"]()
-      end,
-      "Accept completion (Option + l)",
-      opts = { expr = true, silent = true },
-    },
-  },
-}
-
 M.fzf = {
   plugin = true,
   n = {
@@ -232,6 +218,39 @@ M.zenmode = {
       "Toggle ZenMode"
     },
   },
+}
+
+M.mchat = {
+  plugin = true,
+  n = {
+    -- Option + d
+    ["∂"] = {
+      "<cmd> Mdelete <CR>",
+      "Delete Mchat suggestion (Option + d)"
+    },
+
+    -- Option + l
+    ["¬"] = {
+      "<cmd> Mselect <CR>,",
+      "Select Mchat suggestion (Option + l)"
+    },
+
+    -- Option + c
+    ["ç"] = {
+      "<cmd> Mchat <CR>",
+      "Start an Mchat chat instance (Option + c)"
+    },
+  },
+}
+
+M.gen = {
+  plugin = true,
+  n = {
+    ["π"] = {
+      "<cmd> Gen Chat<CR>",
+      "Launch Gen AI Chat (Option + p)"
+    }
+  }
 }
 
 M.ollama = {

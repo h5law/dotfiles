@@ -24,6 +24,9 @@ local plugins = {
     end,
   },
   {
+    "tpope/vim-fugitive",
+  },
+  {
     "mistricky/codesnap.nvim",
     build = "make build_generator",
     opts = {
@@ -95,6 +98,30 @@ local plugins = {
     end,
   },
   {
+    "David-Kunz/gen.nvim",
+    opts = {
+      model = "llama3:latest",
+      host = "localhost",
+      port = "11434",
+      quit_map = "q",
+      retry_map = "<c-r>",
+      init = function(options) pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
+
+      command = function(options)
+        local body = { model = options.model, stream = true }
+        return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
+      end,
+      display_mode = "split",
+      show_prompt = true,
+      show_model = true,
+      no_auto_close = true,
+      debug = false,
+    },
+    init = function()
+      require("core.utils").load_mappings("gen")
+    end
+  },
+  {
     "nomnivore/ollama.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -108,13 +135,6 @@ local plugins = {
     end,
     init = function()
       require("core.utils").load_mappings("ollama")
-    end,
-  },
-  {
-    "Exafunction/codeium.vim",
-    event = "BufEnter",
-    config = function()
-      require("core.utils").load_mappings("codeium")
     end,
   },
   {
@@ -170,7 +190,6 @@ local plugins = {
         "pylint",
         "isort",
         "black",
-        "prettierd",
         "clangd",
         "codelldb",
         "clang-format",
@@ -182,11 +201,15 @@ local plugins = {
         "mdformat",
         "lua-language-server",
         "shellcheck",
-        "markdownlint",
         "buf",
         "deno",
+        "actionlint",
       },
     },
+  },
+  {
+    "ray-x/guihua.lua",
+    run = "cd lua/fzy && make",
   },
   {
     "ray-x/go.nvim",
@@ -242,7 +265,7 @@ local plugins = {
       vim.g.mkdp_auto_start = 0
       vim.g.mkdp_auto_close = 1
       vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mkdp_browser = "/Applications/Arc.app/Contents/MacOS/Arc"
+      vim.g.mkdp_browser = "/Applications/Orion.app/Contents/MacOS/Orion"
       require("core.utils").load_mappings("mkdp")
     end,
   },

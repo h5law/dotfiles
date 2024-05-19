@@ -1,4 +1,5 @@
 local cmp = require "cmp"
+local compare = require('cmp.config.compare')
 
 dofile(vim.g.base46_cache .. "cmp")
 
@@ -26,6 +27,7 @@ local formatting_style = {
       icon = cmp_ui.lspkind_text and (" " .. icon .. " ") or icon
       item.kind = string.format("%s %s", icon, cmp_ui.lspkind_text and item.kind or "")
     end
+
 
     return item
   end,
@@ -106,10 +108,24 @@ local options = {
   },
   sources = {
     { name = "nvim_lsp" },
+    { name = "cmd_ai" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "nvim_lua" },
     { name = "path" },
+  },
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      compare.offset,
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      compare.kind,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
   },
 }
 
