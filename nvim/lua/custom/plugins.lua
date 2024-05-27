@@ -1,9 +1,6 @@
 local plugins = {
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "nvimtools/none-ls.nvim",
-    },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
@@ -13,18 +10,16 @@ local plugins = {
     "nvim-tree/nvim-web-devicons",
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-lspconfig" },
-    opts = function()
-      return require("custom.configs.null-ls")
-    end,
-    init = function(opts)
-      require("null-ls").setup(opts)
+    'stevearc/conform.nvim',
+    opts = function ()
+      return require("custom.configs.conform")
     end,
   },
   {
-    "tpope/vim-fugitive",
+    "mfussenegger/nvim-lint",
+    init = function ()
+      require("custom.configs.lint")
+    end
   },
   {
     "mistricky/codesnap.nvim",
@@ -129,9 +124,6 @@ local plugins = {
     cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
     opts = function()
       return require("custom.configs.ollama")
-    end,
-    config = function(_, opts)
-      require("ollama").setup(opts)
     end,
     init = function()
       require("core.utils").load_mappings("ollama")
@@ -271,12 +263,7 @@ local plugins = {
   },
   {
     "chentoast/marks.nvim",
-    opts = function()
-      return require("custom.configs.null-ls")
-    end,
-    init = function(_, opts)
-      require("null-ls").setup(opts)
-    end,
+    opts = {},
   },
   {
     "folke/neodev.nvim",
