@@ -217,6 +217,7 @@ alias exir="exit"
 
 # fzf aliases
 alias sd="cd \$(fd -c never -t d | fzf --preview 'tree -C {} | head -200')"
+alias preview="fd -c never -t d | fzf --preview 'tree -C {} | head -200'"
 alias find="fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias fim="nvim \$(fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')"
 
