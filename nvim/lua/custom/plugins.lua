@@ -11,13 +11,16 @@ local plugins = {
   },
   {
     'stevearc/conform.nvim',
-    opts = function ()
+    opts = function()
       return require("custom.configs.conform")
+    end,
+    config = function(_, opts)
+      require("conform").setup(opts)
     end,
   },
   {
     "mfussenegger/nvim-lint",
-    init = function ()
+    init = function()
       require("custom.configs.lint")
     end
   },
