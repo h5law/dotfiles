@@ -5,18 +5,18 @@ M.disabled = {
   -- normal mode
   n = {
     ["<leader>n"] = "", -- toggle line number
-    ["<A-i>"] = "",     -- toggle floating term
-    ["<A-h>"] = "",     -- toggle horizontal term
-    ["<A-v>"] = "",     -- toggle vertical term
+    ["<A-i>"] = "", -- toggle floating term
+    ["<A-h>"] = "", -- toggle horizontal term
+    ["<A-v>"] = "", -- toggle vertical term
     ["<leader>h"] = "", -- new horizontal term
     ["<leader>v"] = "", -- new vertical term
   },
 
   -- visual mode
   v = {
-    ["y"] = "",         -- yank
-    ["p"] = "",         -- paste
-    ["P"] = "",         -- paste before
+    ["y"] = "", -- yank
+    ["p"] = "", -- paste
+    ["P"] = "", -- paste before
     ["<leader>y"] = "", -- copy to clipboard
     ["<leader>p"] = "", -- paste from clipboard
   },
@@ -112,38 +112,38 @@ M.gonvim = {
   n = {
     ["<leader>tm"] = {
       "<cmd> GoTestFunc -v <CR>",
-      "Test current go function"
+      "Test current go function",
     },
 
     ["<leader>tf"] = {
       "<cmd> GoTestFile -v <CR>",
-      "Test current go file"
+      "Test current go file",
     },
 
     ["<leader>tp"] = {
       "<cmd> GoTestPkg <CR>",
-      "Test current go package"
+      "Test current go package",
     },
 
     ["<leader>gmt"] = {
       "<cmd> GoModTidy <CR>",
-      "Run go mod tidy and restart gopls"
+      "Run go mod tidy and restart gopls",
     },
 
     ["<leader>gst"] = {
       "<cmd> GoAlt! <CR>",
-      "Switch to (or create) the go test file for the current file"
+      "Switch to (or create) the go test file for the current file",
     },
 
     ["<leader>gsj"] = {
       "<cmd> GoAddTags json <CR>",
-      "Add json tag to the current struct"
+      "Add json tag to the current struct",
     },
 
     ["<leader>gc"] = {
       function()
         require("go.comment").gen()
-      end
+      end,
     },
   },
 }
@@ -153,12 +153,12 @@ M.dap = {
   n = {
     ["<leader>db"] = {
       "<cmd> DapToggleBreakpoint <CR>",
-      "Add breakpoint at line"
+      "Add breakpoint at line",
     },
 
     ["<leader>dso"] = {
       "<cmd> DapStepOver <CR>",
-      "Debug step over"
+      "Debug step over",
     },
   },
 }
@@ -185,7 +185,7 @@ M.mkdp = {
   n = {
     ["<leader>mp"] = {
       "<cmd> MarkdownPreviewToggle <CR>",
-      "Toggle markdown preview"
+      "Toggle markdown preview",
     },
   },
 }
@@ -195,17 +195,17 @@ M.fzf = {
   n = {
     ["<leader>fg"] = {
       "<cmd> FzfLua grep_visual <CR>",
-      "Open Fzf Grep"
+      "Open Fzf Grep",
     },
 
     ["<leader>fs"] = {
       "<cmd> FzfLua lsp_document_symbols <CR>",
-      "Get All Symbols of current file"
+      "Get All Symbols of current file",
     },
 
     ["<leader>gs"] = {
       "<cmd> FzfLua git_status <CR>",
-      "Show and interactive git status window side by side with diff"
+      "Show and interactive git status window side by side with diff",
     },
   },
 }
@@ -215,7 +215,7 @@ M.zenmode = {
   n = {
     ["<leader>zm"] = {
       "<cmd> ZenMode <CR>",
-      "Toggle ZenMode"
+      "Toggle ZenMode",
     },
   },
 }
@@ -226,19 +226,19 @@ M.mchat = {
     -- Option + d
     ["∂"] = {
       "<cmd> Mdelete <CR>",
-      "Delete Mchat suggestion (Option + d)"
+      "Delete Mchat suggestion (Option + d)",
     },
 
     -- Option + l
     ["¬"] = {
       "<cmd> Mselect <CR>,",
-      "Select Mchat suggestion (Option + l)"
+      "Select Mchat suggestion (Option + l)",
     },
 
     -- Option + c
     ["ç"] = {
       "<cmd> Mchat <CR>",
-      "Start an Mchat chat instance (Option + c)"
+      "Start an Mchat chat instance (Option + c)",
     },
   },
 }
@@ -248,9 +248,9 @@ M.gen = {
   n = {
     ["π"] = {
       "<cmd> Gen Chat<CR>",
-      "Launch Gen AI Chat (Option + p)"
-    }
-  }
+      "Launch Gen AI Chat (Option + p)",
+    },
+  },
 }
 
 M.ollama = {
@@ -258,7 +258,7 @@ M.ollama = {
   n = {
     ["<leader>ps"] = {
       function()
-        require('ollama').prompt()
+        require("ollama").prompt()
       end,
       "ollama prompt",
     },
@@ -267,7 +267,7 @@ M.ollama = {
   v = {
     ["<leader>ps"] = {
       function()
-        require('ollama').prompt()
+        require("ollama").prompt()
       end,
       "ollama prompt",
     },
@@ -279,7 +279,7 @@ M.findr = {
   n = {
     ["<leader>fd"] = {
       "<cmd> Findr <CR>",
-      "Open Findr"
+      "Open Findr",
     },
   },
 }
@@ -289,7 +289,7 @@ M.trouble = {
   n = {
     ["<leader>ts"] = {
       "<cmd> Trouble <CR>",
-      "Toggle Trouble"
+      "Toggle Trouble",
     },
   },
 }
@@ -301,7 +301,7 @@ M.harpoon = {
       function()
         require("harpoon"):list():add()
       end,
-      "Add file to harpoon"
+      "Add file to harpoon",
     },
 
     -- Option + f
@@ -335,14 +335,30 @@ M.codesnap = {
   v = {
     ["<leader>cb"] = {
       "<cmd> CodeSnap <CR>",
-      "Copy selected code snapshot into clipboard"
+      "Copy selected code snapshot into clipboard",
     },
 
     ["<leader>cs"] = {
       "<cmd> CodeSnapSave <CR>",
-      "Save selected code snapshot in ~/Pictures/CodeSnippets/"
+      "Save selected code snapshot in ~/Pictures/CodeSnippets/",
     },
-  }
+  },
+}
+
+M.conform = {
+  plugin = true,
+  v = {
+    ["<leader>vf"] = {
+      function()
+        require("conform").format {
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 500,
+        }
+      end,
+      "Format visual block",
+    },
+  },
 }
 
 return M

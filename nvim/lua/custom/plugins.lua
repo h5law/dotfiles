@@ -10,9 +10,10 @@ local plugins = {
     "nvim-tree/nvim-web-devicons",
   },
   {
-    'stevearc/conform.nvim',
+    "stevearc/conform.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     opts = function()
-      return require("custom.configs.conform")
+      return require "custom.configs.conform"
     end,
     config = function(_, opts)
       require("conform").setup(opts)
@@ -20,9 +21,10 @@ local plugins = {
   },
   {
     "mfussenegger/nvim-lint",
-    init = function()
-      require("custom.configs.lint")
-    end
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "custom.configs.lint"
+    end,
   },
   {
     "mistricky/codesnap.nvim",
@@ -37,44 +39,44 @@ local plugins = {
     },
     config = function(_, opts)
       require("codesnap").setup(opts)
-      require("core.utils").load_mappings("codesnap")
+      require("core.utils").load_mappings "codesnap"
     end,
   },
   {
-    'stevearc/dressing.nvim',
+    "stevearc/dressing.nvim",
     opts = {},
     init = function()
-      require('dressing').setup({
+      require("dressing").setup {
         input = {
           win_options = {
-            winhighlight = 'NormalFloat:DiagnosticError'
-          }
+            winhighlight = "NormalFloat:DiagnosticError",
+          },
         },
         select = {
           get_config = function()
             return {
-              backend = 'fzf',
+              backend = "fzf",
               nui = {
-                relative = 'cursor',
+                relative = "cursor",
                 max_width = 40,
-              }
+              },
             }
-          end
-        }
-      })
-    end
+          end,
+        },
+      }
+    end,
   },
   {
     "conweller/findr.vim",
     init = function()
-      require("core.utils").load_mappings("findr")
+      require("core.utils").load_mappings "findr"
     end,
   },
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     init = function()
-      require("core.utils").load_mappings("trouble")
+      require("core.utils").load_mappings "trouble"
     end,
   },
   {
@@ -83,16 +85,16 @@ local plugins = {
     dependencies = { "nvim-lua/plenary.nvim" },
     init = function()
       require("harpoon").setup()
-      require("core.utils").load_mappings("harpoon")
+      require("core.utils").load_mappings "harpoon"
     end,
   },
   {
     "ibhagwan/fzf-lua",
     dependencies = {
-      'nvim-tree/nvim-web-devicons'
+      "nvim-tree/nvim-web-devicons",
     },
     init = function()
-      require("core.utils").load_mappings("fzf")
+      require("core.utils").load_mappings "fzf"
     end,
   },
   {
@@ -103,11 +105,17 @@ local plugins = {
       port = "11434",
       quit_map = "q",
       retry_map = "<c-r>",
-      init = function(options) pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
+      init = function(opts)
+        pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
+      end,
 
       command = function(options)
         local body = { model = options.model, stream = true }
-        return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
+        return "curl --silent --no-buffer -X POST http://"
+          .. options.host
+          .. ":"
+          .. options.port
+          .. "/api/chat -d $body"
       end,
       display_mode = "split",
       show_prompt = true,
@@ -116,8 +124,8 @@ local plugins = {
       debug = false,
     },
     init = function()
-      require("core.utils").load_mappings("gen")
-    end
+      require("core.utils").load_mappings "gen"
+    end,
   },
   {
     "nomnivore/ollama.nvim",
@@ -126,10 +134,10 @@ local plugins = {
     },
     cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
     opts = function()
-      return require("custom.configs.ollama")
+      return require "custom.configs.ollama"
     end,
     init = function()
-      require("core.utils").load_mappings("ollama")
+      require("core.utils").load_mappings "ollama"
     end,
   },
   {
@@ -138,10 +146,10 @@ local plugins = {
       "folke/twilight.nvim",
     },
     opts = function()
-      return require("custom.configs.zenmode")
+      return require "custom.configs.zenmode"
     end,
     init = function()
-      require("core.utils").load_mappings("zenmode")
+      require("core.utils").load_mappings "zenmode"
     end,
   },
   {
@@ -152,9 +160,9 @@ local plugins = {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     init = function()
-      require("core.utils").load_mappings("dapui")
-      local dap = require("dap")
-      local dapui = require("dapui")
+      require("core.utils").load_mappings "dapui"
+      local dap = require "dap"
+      local dapui = require "dapui"
       dapui.setup()
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
@@ -165,7 +173,7 @@ local plugins = {
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
       end
-    end
+    end,
   },
   {
     "williamboman/mason.nvim",
@@ -177,26 +185,22 @@ local plugins = {
         "goimports",
         "goimports-reviser",
         "golines",
-        "revive",
+        "golangci-lint",
         "delve",
         "zls",
-        "protolint",
-        "pyright",
-        "pylint",
         "isort",
         "black",
+        "mypy",
         "clangd",
         "codelldb",
         "clang-format",
-        "cpplint",
-        "ruff",
         "solang",
         "solhint",
+        "stylua",
+        "markdownlint",
         "markdown-toc",
         "mdformat",
-        "lua-language-server",
         "shellcheck",
-        "buf",
         "deno",
         "actionlint",
       },
@@ -216,11 +220,11 @@ local plugins = {
       "nvim-treesitter/nvim-treesitter",
     },
     opts = function()
-      return require("custom.configs.gonvim")
+      return require "custom.configs.gonvim"
     end,
     config = function(_, opts)
       require("go").setup(opts)
-      require("core.utils").load_mappings("gonvim")
+      require("core.utils").load_mappings "gonvim"
     end,
     event = { "CmdlineEnter" },
     ft = { "go", "gotmpl", "gomod", "gowork" },
@@ -240,7 +244,7 @@ local plugins = {
   {
     "mfussenegger/nvim-dap",
     init = function()
-      require("core.utils").load_mappings("dap")
+      require("core.utils").load_mappings "dap"
     end,
   },
   {
@@ -255,13 +259,15 @@ local plugins = {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
     init = function()
       vim.g.mkdp_auto_start = 0
       vim.g.mkdp_auto_close = 1
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_browser = "/Applications/Orion.app/Contents/MacOS/Orion"
-      require("core.utils").load_mappings("mkdp")
+      require("core.utils").load_mappings "mkdp"
     end,
   },
   {
