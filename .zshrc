@@ -217,8 +217,13 @@ alias exir="exit"
 
 # fzf aliases
 alias sd="cd \$(fd -c never -t d | fzf --preview 'tree -C {} | head -200')"
-alias preview="fd -c never -t d | fzf --preview 'tree -C {} | head -200'"
-alias find="fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+alias files="fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+alias preview="/opt/homebrew/bin/fd -H -I -c never | fzf --preview '
+if [ -d {} ]; then
+    tree -C {} | head -n 500
+else
+    bat --style=numbers --color=always --line-range :500 {}
+fi'"
 alias fim="nvim \$(fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')"
 
 # command aliases
@@ -226,6 +231,7 @@ alias g="git"
 alias n="nvim"
 alias m="nvim"
 alias git_aliases="git config --get-regexp alias"
+alias mactop="sudo mactop"
 alias cat="bat -pp"
 alias gt="gpg-tui"
 alias update="~/.local/bin/updator.sh"
@@ -265,3 +271,6 @@ source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# bun completions
+[ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"
