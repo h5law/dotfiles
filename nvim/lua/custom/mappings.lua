@@ -140,6 +140,11 @@ M.gonvim = {
       "Add json tag to the current struct",
     },
 
+    ["<leader>ie"] = {
+      "<cmd> GoIfErr <CR>",
+      "Creae an if err == nil statement",
+    },
+
     ["<leader>gc"] = {
       function()
         require("go.comment").gen()
@@ -216,29 +221,6 @@ M.zenmode = {
     ["<leader>zm"] = {
       "<cmd> ZenMode <CR>",
       "Toggle ZenMode",
-    },
-  },
-}
-
-M.mchat = {
-  plugin = true,
-  n = {
-    -- Option + d
-    ["∂"] = {
-      "<cmd> Mdelete <CR>",
-      "Delete Mchat suggestion (Option + d)",
-    },
-
-    -- Option + l
-    ["¬"] = {
-      "<cmd> Mselect <CR>,",
-      "Select Mchat suggestion (Option + l)",
-    },
-
-    -- Option + c
-    ["ç"] = {
-      "<cmd> Mchat <CR>",
-      "Start an Mchat chat instance (Option + c)",
     },
   },
 }
@@ -357,6 +339,16 @@ M.conform = {
         }
       end,
       "Format visual block",
+    },
+  },
+}
+
+M.tree = {
+  plugin = true,
+  n = {
+    ["<C-n>"] = {
+      "<cmd>CHADopen<CR>",
+      "Toggle CHADtree File Viewer",
     },
   },
 }

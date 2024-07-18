@@ -1,14 +1,43 @@
 local plugins = {
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
+    dependencies = {
+      { "ms-jpq/coq_nvim", branch = "coq" },
+      { "ms-jpq/coq.artifacts", branch = "artifacts" },
+      { "ms-jpq/coq.thirdparty", branch = "3p" },
+    },
+    init = function()
+      require "custom.configs.coq"
+    end,
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
   },
   {
-    "nvim-tree/nvim-web-devicons",
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
   },
+  {
+    "ms-jpq/chadtree",
+    branch = "chad",
+    init = function()
+      os.execute "python3 -m chadtree deps"
+      require("core.utils").load_mappings "tree"
+    end,
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true },
   {
     "stevearc/conform.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -24,6 +53,12 @@ local plugins = {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require "custom.configs.lint"
+    end,
+  },
+  {
+    "rcarriga/nvim-notify",
+    init = function()
+      vim.notify = require "notify"
     end,
   },
   {
@@ -152,9 +187,94 @@ local plugins = {
       require("core.utils").load_mappings "zenmode"
     end,
   },
+  -- {
+  --   "folke/neodev.nvim",
+  --   opts = {},
+  -- },
   {
-    "folke/neodev.nvim",
-    opts = {},
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "vim-test/vim-test",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      {
+        "fredrikaverpil/neotest-golang",
+        dependencies = {
+          {
+            "leoluz/nvim-dap-go",
+            opts = {},
+          },
+        },
+        branch = "main",
+      },
+      "lawrence-laz/neotest-zig",
+      "rouge8/neotest-rust",
+    },
+    config = function()
+      local neotest_ns = vim.api.nvim_create_namespace "neotest"
+      vim.diagnostic.config({
+        virtual_text = {
+          format = function(diagnostic)
+            local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+            return message
+          end,
+        },
+      }, neotest_ns)
+
+      HOME_PATH = os.getenv "HOME" .. "/"
+      MASON_PATH = HOME_PATH .. ".local/share/nvim/mason/packages/"
+      local codelldb_path = MASON_PATH .. "codelldb/extension/adapter/codelldb"
+      local liblldb_path = MASON_PATH .. "codelldb/extension/lldb/lib/liblldb.so"
+
+      local opts = {
+        dap = {
+          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+        },
+      }
+      require("neotest").setup {
+        adapters = {
+          require("neotest-golang").setup {
+            gp_test_args = {
+              "-v",
+              "-race",
+              "-count=1",
+            },
+          },
+          require("neotest-rust").setup(opts),
+          require("neotest").setup {
+            adapters = {
+              require "neotest-zig" {
+                dap = {
+                  adapter = "lldb",
+                },
+              },
+            },
+          },
+          require "neotest-plenary",
+          require("neotest-vim-test").setup {
+            ignore_file_types = { "rust", "go", "zig", "vim", "lua" },
+          },
+        },
+      }
+    end,
+    keys = {
+      {
+        "<leader>tn",
+        function()
+          require("neotest").run.run { suite = true, strategy = "neovim-sticky" }
+        end,
+        desc = "Test nearest test",
+      },
+      {
+        "<leader>td",
+        function()
+          require("neotest").run.run { suite = true, strategy = "dap" }
+        end,
+        desc = "Debug nearest test",
+      },
+    },
   },
   {
     "rcarriga/nvim-dap-ui",
@@ -266,7 +386,7 @@ local plugins = {
       vim.g.mkdp_auto_start = 0
       vim.g.mkdp_auto_close = 1
       vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mkdp_browser = "/Applications/Orion.app/Contents/MacOS/Orion"
+      vim.g.mkdp_browser = "/Applications/Arc.app/Contents/MacOS/Arc"
       require("core.utils").load_mappings "mkdp"
     end,
   },
@@ -275,11 +395,14 @@ local plugins = {
     opts = {},
   },
   {
-    "folke/neodev.nvim",
-    opts = {},
-  },
-  {
     "nvim-treesitter/nvim-treesitter-context",
+    opts = {
+      multiline_threshold = 5,
+      zindex = 5,
+    },
+    config = function(_, opts)
+      require("treesitter-context").setup(opts)
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -305,6 +428,7 @@ local plugins = {
         "rust",
         "go",
         "zig",
+        "codelldb",
 
         -- DSL
         "solidity",

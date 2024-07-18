@@ -90,24 +90,22 @@ local default_plugins = {
   -- git stuff
   {
     "lewis6991/gitsigns.nvim",
-    ft = { "gitcommit", "diff" },
+    -- ft = { "gitcommit", "diff" },
     init = function()
       -- load gitsigns only when a git file is opened
       vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
         callback = function()
-          vim.fn.jobstart({"git", "-C", vim.loop.cwd(), "rev-parse"},
-            {
-              on_exit = function(_, return_code)
-                if return_code == 0 then
-                  vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
-                  vim.schedule(function()
-                    require("lazy").load { plugins = { "gitsigns.nvim" } }
-                  end)
-                end
+          vim.fn.jobstart({ "git", "-C", vim.loop.cwd(), "rev-parse" }, {
+            on_exit = function(_, return_code)
+              if return_code == 0 then
+                vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
+                vim.schedule(function()
+                  require("lazy").load { plugins = { "gitsigns.nvim" } }
+                end)
               end
-            }
-          )
+            end,
+          })
         end,
       })
     end,
@@ -153,52 +151,52 @@ local default_plugins = {
   },
 
   -- load luasnips + cmp related in insert mode only
-  {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    dependencies = {
-      {
-        -- snippet plugin
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-        config = function(_, opts)
-          require("plugins.configs.others").luasnip(opts)
-        end,
-      },
-
-      -- autopairing of (){}[] etc
-      {
-        "windwp/nvim-autopairs",
-        opts = {
-          fast_wrap = {},
-          disable_filetype = { "TelescopePrompt", "vim" },
-        },
-        config = function(_, opts)
-          require("nvim-autopairs").setup(opts)
-
-          -- setup cmp for autopairs
-          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
-      },
-
-      -- cmp sources plugins
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-      },
-    },
-    opts = function()
-      return require "plugins.configs.cmp"
-    end,
-    config = function(_, opts)
-      require("cmp").setup(opts)
-    end,
-  },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   event = "InsertEnter",
+  --   dependencies = {
+  --     {
+  --       -- snippet plugin
+  --       "L3MON4D3/LuaSnip",
+  --       dependencies = "rafamadriz/friendly-snippets",
+  --       opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+  --       config = function(_, opts)
+  --         require("plugins.configs.others").luasnip(opts)
+  --       end,
+  --     },
+  --
+  --     -- autopairing of (){}[] etc
+  --     {
+  --       "windwp/nvim-autopairs",
+  --       opts = {
+  --         fast_wrap = {},
+  --         disable_filetype = { "TelescopePrompt", "vim" },
+  --       },
+  --       config = function(_, opts)
+  --         require("nvim-autopairs").setup(opts)
+  --
+  --         -- setup cmp for autopairs
+  --         local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+  --         require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+  --       end,
+  --     },
+  --
+  --     -- cmp sources plugins
+  --     {
+  --       "saadparwaiz1/cmp_luasnip",
+  --       "hrsh7th/cmp-nvim-lua",
+  --       "hrsh7th/cmp-nvim-lsp",
+  --       "hrsh7th/cmp-buffer",
+  --       "hrsh7th/cmp-path",
+  --     },
+  --   },
+  --   opts = function()
+  --     return require "plugins.configs.cmp"
+  --   end,
+  --   config = function(_, opts)
+  --     require("cmp").setup(opts)
+  --   end,
+  -- },
 
   {
     "numToStr/Comment.nvim",
@@ -219,20 +217,20 @@ local default_plugins = {
   },
 
   -- file managing , picker etc
-  {
-    "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    init = function()
-      require("core.utils").load_mappings "nvimtree"
-    end,
-    opts = function()
-      return require "plugins.configs.nvimtree"
-    end,
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "nvimtree")
-      require("nvim-tree").setup(opts)
-    end,
-  },
+  -- {
+  --   "nvim-tree/nvim-tree.lua",
+  --   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+  --   init = function()
+  --     require("core.utils").load_mappings "nvimtree"
+  --   end,
+  --   opts = function()
+  --     return require "plugins.configs.nvimtree"
+  --   end,
+  --   config = function(_, opts)
+  --     dofile(vim.g.base46_cache .. "nvimtree")
+  --     require("nvim-tree").setup(opts)
+  --   end,
+  -- },
 
   {
     "nvim-telescope/telescope.nvim",
@@ -259,6 +257,7 @@ local default_plugins = {
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
+    lazy = false,
     keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
     init = function()
       require("core.utils").load_mappings "whichkey"

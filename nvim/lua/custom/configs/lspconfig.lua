@@ -1,22 +1,19 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
--- neodev must be setup before lspconfig
-require("neodev").setup({
-  library = { plugins = { "nvim-dap-ui" }, types = true },
-})
+local lspconfig = require "lspconfig"
+local coq = require "coq"
+local util = require "lspconfig/util"
 
-local lspconfig = require("lspconfig")
-local util = require("lspconfig/util")
-
-lspconfig.rust_analyzer.setup({
+lspconfig.rust_analyzer.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "rust" },
-  root_dir = lspconfig.util.root_pattern("Cargo.toml")
-})
+  root_dir = lspconfig.util.root_pattern "Cargo.toml",
+  coq.lsp_ensure_capabilities {},
+}
 
-lspconfig.gopls.setup({
+lspconfig.gopls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "gopls" },
@@ -36,24 +33,27 @@ lspconfig.gopls.setup({
       usePlaceholders = true,
     },
   },
-})
+  coq.lsp_ensure_capabilities {},
+}
 
-lspconfig.clangd.setup({
+lspconfig.clangd.setup {
   on_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
     on_attach(client, bufnr)
   end,
   capabilities = capabilities,
-})
+  coq.lsp_ensure_capabilities {},
+}
 
-lspconfig.pyright.setup({
+lspconfig.pyright.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "python" },
   root_dir = util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"),
-})
+  coq.lsp_ensure_capabilities {},
+}
 
-lspconfig.tsserver.setup({
+lspconfig.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
@@ -62,12 +62,14 @@ lspconfig.tsserver.setup({
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentFormattingRangeProvider = false
   end,
-})
+  coq.lsp_ensure_capabilities {},
+}
 
 lspconfig.solang.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "solidity" },
+  coq.lsp_ensure_capabilities {},
 }
 
 lspconfig.zls = {
@@ -81,4 +83,5 @@ lspconfig.zls = {
       root_dir = [[root_pattern("build.zig", ".git")]],
     },
   },
+  coq.lsp_ensure_capabilities {},
 }

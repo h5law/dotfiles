@@ -376,6 +376,12 @@ M.whichkey = {
       end,
       "Which-key query lookup",
     },
+    ["<leader>?"] = {
+      function()
+        require("which-key").show { global = false }
+      end,
+      "Buffer Local Keymaps (which-key)",
+    },
   },
 }
 

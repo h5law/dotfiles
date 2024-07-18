@@ -6,11 +6,19 @@ local opts = {
     typescript = { "prettier" },
     c = { "clang-format" },
     cpp = { "clang-format" },
-    go = { "goimports-reviser", "gofumpt", "golines" },
+    go = { "gofumpt", "goimports-reviser" },
     rust = { "rustfmt" },
     zig = { "zigfmt" },
     just = { "just" },
     markdown = { "markdown-lint", "markdown-toc", "mdformat", "injected" },
+  },
+  formatters = {
+    ["golines"] = {
+      preapend_args = { "-m", "120" },
+    },
+    ["goimports-reviser"] = {
+      preapend_args = { "-rm-unused", "-project-name 'github.com/polymerdao/polymerase'" },
+    },
   },
   format_on_save = {
     lsp_fallback = true,
