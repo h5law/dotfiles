@@ -13,6 +13,9 @@ fi
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git vi-mode virtualenv)
 zstyle ':omz:update' mode auto
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[ ! -f "${HOME}}/.p10k.zsh" ] && source "${HOME}/.p10k.zsh" || p10k configure
 source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
 # zsh syntax highlighting
@@ -59,7 +62,6 @@ export GPG_H10LAW="F80B0DE79DC5204F561A0DE35A64130002E4B553"  # h10law@pm.me
 export GPG_HARRY="C95A052EB250F3AD8624E9916231F9B2A450EA3A"   # harry@h5law.com
 export GPG_DEV="5E13EF45407F11ED9D86A79F51F7D17EC2E1BBE3"     # dev@h5law.com
 export GPG_E2E="A840602393055DD3B52B91B2330B8F4221F57F6B"     # e2e@encro.chat
-export GPG_POLYMER="9C90BCC808A7068F37C0BCED468E8D612754F96D" # harry@polymerlabs.org
 export GPG_SWOLE="1D5A10AE11756A935EEA0278DF3FFDF4F6DCB06C"
 
 # enable GPG signing
@@ -68,10 +70,6 @@ export GPG_TTY=$TTY
 # bat
 export BAT_PAGER="less -RF"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# llvm
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 # Modular
 export MODULAR_HOME="/Users/harry/.modular"
@@ -187,23 +185,33 @@ function backup() {
         "${HOME}/.zshenv"
         "${HOME}/.config/nvim"
     )
-    eval ${HOME}/.local/bin/backup.sh ${files[@]} ${HOME}/personal/dotfiles
+    eval "${HOME}/.local/bin/backup.sh" "${files[@]}" "${HOME}/personal/dotfiles"
 }
 
 ###########
 # ALIASES #
 ###########
 
-# ls 
+# applications
+alias sp="spotify_player"
 alias tree="tree -ACFQahv --dirsfirst -I '.git,node_modules'"
 alias fd="fd -c always -H --ignore --ignore-vcs --exclude node_modules --exclude Library --exclude .bun --exclude .cargo --exclude go/ --exclude .pkgx/ --exclude .rustup/"
 alias bfs="bfs -color -hidden"
+alias cat="bat -pp"
+alias gt="gpg-tui"
 
-# desired flag aliases
+# fzf aliases
+alias sd="cd \$(fd -c never -t d | fzf --preview 'tree -C {} | head -200')"
+alias preview="fd -c never -t d | fzf --preview 'tree -C {} | head -200'"
+alias find="fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+alias fim="nvim \$(fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')"
+
+# desired flag aliases (verbosity)
 alias cp="cp -v"
 alias mkdir="mkdir -pv"
 alias rm="rm -v"
 alias mv="mv -v"
+alias wipe="rm -vfrd"
 
 # spelling aliases
 alias vim="nvim"
@@ -214,35 +222,22 @@ alias ncim="nvim"
 alias nvmi="nvim"
 alias got="git"
 alias exir="exit"
-
-# fzf aliases
-alias sd="cd \$(fd -c never -t d | fzf --preview 'tree -C {} | head -200')"
-alias files="fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
-alias preview="/opt/homebrew/bin/fd -H -I -c never | fzf --preview '
-if [ -d {} ]; then
-    tree -C {} | head -n 500
-else
-    bat --style=numbers --color=always --line-range :500 {}
-fi'"
-alias fim="nvim \$(fd -c never | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')"
+alias d="cd"
 
 # command aliases
 alias g="git"
 alias n="nvim"
 alias m="nvim"
 alias git_aliases="git config --get-regexp alias"
-alias mactop="sudo mactop"
-alias cat="bat -pp"
-alias gt="gpg-tui"
-alias update="~/.local/bin/updator.sh"
-alias cwctr="cargo watch -x check -x test -x run"
-alias rustdoc="RUSTDOCFLAGS='--html-in-header ./header-file.html' cargo watch -s 'cargo doc --no-deps --color always && browser-sync start -w --ss target/doc -s target/doc --directory --no-open'"
-alias tarp="cargo tarpaulin --ignore-tests"
-alias wipe="rm -rfd ${@}"
-alias tgo="tinygo"
-alias oweb="docker run -d -p 4000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main"
+
+# automation scripts
 alias backup="./Users/harry/.local/bin/backup.sh"
-alias tdtu="tilt down && tilt up"
+alias update="~/.local/bin/updator.sh"
+
+# Rust docs
+alias rustdoc="RUSTDOCFLAGS='--html-in-header ./header-file.html' cargo watch -s 'cargo doc --no-deps --color always && browser-sync start -w --ss target/doc -s target/doc --directory --no-open'"
+alias cwctr="cargo watch -x check -x test -x run"
+alias tarp="cargo tarpaulin --ignore-tests"
 
 #####################################
 # AUTO COMPLETIONS AND INTEGRATIONS #
@@ -252,13 +247,16 @@ alias tdtu="tilt down && tilt up"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Auto completions and integrations
-[ -f ~/.fzf-integration.zsh ] && source ~/.fzf-integration.zsh
-[ -f ~/.atuin-init.zsh ] && source ~/.atuin-init.zsh
-[ -f ~/.atuin-completions.zsh ] && source ~/.atuin-completions.zsh
-[ -f ~/.hugo-completions.zsh ] && source ~/.hugo-completions.zsh
-[ -f ~/.kubectl.zsh ] && source ~/.kubectl.zsh
-[ -f ~/.dlv-completions.zsh ] && source ~/.dlv-completions.zsh
-[ -f ~/.colima-completion.zsh ] && source ~/.colima-completion.zsh
+[ -s "${HOME}/.fzf-integration.zsh" ] && source "${HOME}/.fzf-integration.zsh"
+[ -s "${HOME}/.atuin-init.zsh" ] && source "${HOME}/.atuin-init.zsh"
+[ -s "${HOME}/.atuin-completions.zsh" ] && source "${HOME}/.atuin-completions.zsh"
+[ -s "${HOME}/.hugo-completions.zsh" ] && source "${HOME}/.hugo-completions.zsh"
+[ -s "${HOME}/.kubectl.zsh" ] && source "${HOME}/.kubectl.zsh"
+[ -s "${HOME}/.dlv-completions.zsh" ] && source "${HOME}/.dlv-completions.zsh"
+[ -s "${HOME}/.colima-completion.zsh" ] && source "${HOME}/.colima-completion.zsh"
+[ -s "${HOME}/.gh_completions.zsh" ] && source "${HOME}/.gh_completions.zsh"
+[ -s "${HOME}/.spotify-player-comp.zsh" ] && source "${HOME}/.spotify-player-comp.zsh"
+[ -s "${HOME}/.bun/_bun" ] && source "${HOME}/.bun/_bun"
 
 # zoxide integration
 eval "$(zoxide init --cmd "cd" zsh)"
@@ -268,9 +266,3 @@ source /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # pkgx shellcode
 source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# bun completions
-[ -s "/Users/harry/.bun/_bun" ] && source "/Users/harry/.bun/_bun"

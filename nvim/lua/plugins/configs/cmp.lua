@@ -1,5 +1,5 @@
 local cmp = require "cmp"
-local compare = require('cmp.config.compare')
+local compare = require "cmp.config.compare"
 
 dofile(vim.g.base46_cache .. "cmp")
 
@@ -27,7 +27,6 @@ local formatting_style = {
       icon = cmp_ui.lspkind_text and (" " .. icon .. " ") or icon
       item.kind = string.format("%s %s", icon, cmp_ui.lspkind_text and item.kind or "")
     end
-
 
     return item
   end,
@@ -77,7 +76,7 @@ local options = {
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
-    ["<S-CR>"] = cmp.mapping.confirm {
+    ["<CR>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },

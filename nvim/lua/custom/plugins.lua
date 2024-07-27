@@ -184,7 +184,7 @@ local plugins = {
       return require "custom.configs.zenmode"
     end,
     init = function()
-      require("core.utils").load_mappings "zenmode"
+      require("core.utils").load_mappings "zen"
     end,
   },
   -- {
